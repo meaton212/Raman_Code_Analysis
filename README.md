@@ -4,10 +4,12 @@
 ## Summary
 
 This code processes Raman spectral data files consisting of mulitiple spectra and analyzes each curve indivually for their relavent spectral features and provides the correspond statistical distributions of the position, widths and intensity of the main Raman bands within a sample, namely:
--G band
--D band
--2D band
--Intensity ratio between the D and G bands
+
+***
+*G band
+*D band
+*2D band
+*Intensity ratio between the D and G bands
 
 It has the option of finding these bands through the maximum value in a defined range, or through the fitting a lorentizan distribution to the spectral data
 
