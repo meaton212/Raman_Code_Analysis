@@ -16,7 +16,11 @@ Additionally, the G band can be split into G+ and G- bands
 
 The user also has the option to locate and plot the statistical distribution of the RBM modes (optional)
 
-
+Additionally, the Raman code will plot the spectra for each file in several plots, if the user wishes
+* Raw Spectra
+* Normalize Spectra
+* Average Spectra for each file
+* Spectral Range for Intensity Ratio
 
 The user can plot Raman maps of specific spectral features for samples where the spatial arrangement is relevant, such as in the case of controlled patterning of nanomaterials.  
 
@@ -33,3 +37,6 @@ The following variables must be changed by the user before running the code
 
 path: directory where the files to be analyzed are stored.
 file_name
+
+
+## Outputs
