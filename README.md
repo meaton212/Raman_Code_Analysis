@@ -38,12 +38,23 @@ Currently, the data files must have no header, and only list the data in
 Delimeter can be defined in the 
 
 
+
 ## Inputs
 User Input section starts on Line 47
 The following variables must be changed by the user before running the code
 
 path: directory where the files to be analyzed are stored.
-file_name
+file_name: list of filenames, without file extension, that use desires to be processed, in the order that the user wants them to be processed
+total: Number of files in filenames that you want analyzed. Number must be equal to or less than the length of file_name
+delim: delimiter of the data in the data file
+type_: file type/extension for the data file (i.e. '.txt', '.csv', etc...)
+name: list of names used in the legend for each of the files in file_names
+dens: (True or False) Select True for histograms to be normalized, select False for non-normalized histograms
+
+normLow & normHigh: Choose the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) 
+
+## Outputs
+
 
 
 ## Outputs
