@@ -51,10 +51,20 @@ The following variables must be changed by the user before running the code
 * name: list of names used in the legend for each of the files in file_names
 * dens: (True or False) Select True for histograms to be normalized, select False for non-normalized histograms
 
-* normLow & normHigh: Choose the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) 
+### Spectral Bounds
+* normLow & normHigh: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to normalize the spectra
+* band1Low & band1High: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to find the G band location. If lorentzian fits are chosen, then the code will fit this shift range to a lorentzian distrubution function.
+* band2Low & band2High: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to find the D band location. If lorentzian fits are chosen, then the code will fit this shift range to a lorentzian distrubution function.
+* band3Low & band3High: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to find the 2D band location. If lorentzian fits are chosen, then the code will fit this shift range to a lorentzian distrubution function.
+
+### RBM
+* rbm: set to 1 if Radial breathing mode (RBM) analysis is desired. Set to 0 to ignore.
+* RBMregion_Low & RBMregion_Low: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the RBM analysis will occur
+* 
+
+
 
 ## Outputs
 
 
 
-## Outputs
