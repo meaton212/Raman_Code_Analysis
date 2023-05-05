@@ -91,7 +91,8 @@ User can decided whether or not to produce and save specific plots by assigning 
 * use_length: Set to 1 if you want to use the user defined dimensions for the x and y axes (in μm). If set to 0, then the x and y axes will count the pixel numbers.
 * xlen: length of x axis in μm
 * ylen: length of y axis in μm
-* 
+
+
 ## Outputs
 *
 
