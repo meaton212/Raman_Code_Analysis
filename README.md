@@ -34,9 +34,15 @@ The user can plot Raman maps of specific spectral features for samples where the
 
 ## Data format
 
-Currently, the data files must have no header, and only list the data in 
-Delimeter can be defined in the 
+Data can be saved in any text based file, such as .txt, .csv, .dpt, etc.... The file type is defined by the user in the type_ variable in the input section
 
+Currently, the data files must have no header, and only contain the raw data
+
+The first column in the data is the raman shift (in cm<sup>-1</sup>) and must be the same for all the spectra.
+
+Each additional column is the intensity data corresponding the the raman shift in the first column. Each column is a unique spectra.
+
+The data can be separated by any delimeter. The delimeter is defined in the delim variable by the user in the input section
 
 
 ## Inputs
