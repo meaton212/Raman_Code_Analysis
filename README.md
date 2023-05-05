@@ -76,9 +76,22 @@ User can decided whether or not to produce and save specific plots by assigning 
 * raw: Set to 1 to plot all raw spectra for each of the files and save the plot. Set to 0 to ignore.
 * norm: Set to 1 to plot all normalized spectra for each of the files and save the plot. Set to 0 to ignore.
 * rng: Set to 1 to plot the spectral regions chosen for  G, D and 2D bands in intensity calculation for each of the files and save the plot. Set to 0 to ignore.
-* peaks: Set to 1 to plot found peaks in the RBM region. Set to 0 to ignore.
-* correlations: Set to 1 to Plot correlations between peaks shifts and I<sub>d</sub>/I<sub>g</sub>
+* peaks: Set to 1 to plot found peaks in the RBM region and save the plot. Set to 0 to ignore.
+* correlations: Set to 1 to Plot correlations between peaks shifts and I<sub>d</sub>/I<sub>g</sub> and save the plot.
 
+### Plot Format
+* fs: Fontsize for the texts used in all the plots
+* width: Width of histograms
+
+### 2D Maps
+* maps: Set to 1 to plot a 2D heatmap of the selected variable defined by map_var. Set to 0 to ignore.
+* map_var: Spectral variable chosen for 2D maps. Must be 'I' for intensity ratio, 'G' for G band (or G<sup>+</sup> if nt=1), 'D' for D band, or '2D' for 2D band. 
+* rows: Number of rows in 2D map. Note rows x col must equal total number of spectra in file.
+* col: number of columns in 2D map. Note rows x col must equal total number of spectra in file.
+* use_length: Set to 1 if you want to use the user defined dimensions for the x and y axes (in μm). If set to 0, then the x and y axes will count the pixel numbers.
+* xlen: length of x axis in μm
+* ylen: length of y axis in μm
+* 
 ## Outputs
 *
 
