@@ -62,9 +62,14 @@ The following variables must be changed by the user before running the code
 * RBMregion_Low & RBMregion_Low: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the RBM analysis will occur
 * Prom: This value sets the max limit at which peaks will be considered. This can be a single number, or a list of values that different for each file. Local maxima with a maximum height lower than Prom will be discarded.
 
+### Lorentzian Fitting and G band Splitting Options
+* lorentz: Set to 1 to fit a lorentzian model each of your spectral bands (G band, D band, 2D band). Set to 0, to find the band based on solely the maximum intensity value in defined bounds.
+* nt: Set to 1 to split G band into G<sup>+</sup> and G<sup>-</sup> bands. Set to 0 to only find single G band.
+
+
 
 
 ## Outputs
-
+*
 
 
