@@ -65,6 +65,11 @@ The following variables must be changed by the user before running the code
 ### Lorentzian Fitting and G band Splitting Options
 * lorentz: Set to 1 to fit a lorentzian model each of your spectral bands (G band, D band, 2D band). Set to 0, to find the band based on solely the maximum intensity value in defined bounds.
 * nt: Set to 1 to split G band into G<sup>+</sup> and G<sup>-</sup> bands. Set to 0 to only find single G band.
+* 
+* Gmin_init: Initial Guess for the lorentzian fit parameters (3) of the G<sup>-</sup> band, only if nt=1. There sould be a list of 3 parameters for each analyzed file.
+* Gplus_init: Initial Guess for the lorentzian fit parameters (3) of the G<sup>+</sup> band, if nt=1, or G band, if nt=0.There sould be a list of 3 parameters for each analyzed file.
+* D_init: Initial Guess for the lorentzian fit parameters (3) of the D band. There sould be a list of 3 parameters for each analyzed file.
+* init_2D: Initial Guess for the lorentzian fit parameters (3) of the 2D band. There sould be a list of 3 parameters for each analyzed file.
 
 
 
