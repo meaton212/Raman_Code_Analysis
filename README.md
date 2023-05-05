@@ -58,21 +58,26 @@ The following variables must be changed by the user before running the code
 * band3Low & band3High: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to find the 2D band location. If lorentzian fits are chosen, then the code will fit this shift range to a lorentzian distrubution function.
 
 ### RBM
-* rbm: set to 1 if Radial breathing mode (RBM) analysis is desired. Set to 0 to ignore.
+* rbm: set to 1 if Radial breathing mode (RBM) analysis is desired. Set to 0 to ignore. Note, that if the number of spectra is very high, the computing is going to slow down significantly
 * RBMregion_Low & RBMregion_Low: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the RBM analysis will occur
 * Prom: This value sets the max limit at which peaks will be considered. This can be a single number, or a list of values that different for each file. Local maxima with a maximum height lower than Prom will be discarded.
 
 ### Lorentzian Fitting and G band Splitting Options
 * lorentz: Set to 1 to fit a lorentzian model each of your spectral bands (G band, D band, 2D band). Set to 0, to find the band based on solely the maximum intensity value in defined bounds.
 * nt: Set to 1 to split G band into G<sup>+</sup> and G<sup>-</sup> bands. Set to 0 to only find single G band.
-* 
 * Gmin_init: Initial Guess for the lorentzian fit parameters (3) of the G<sup>-</sup> band, only if nt=1. There sould be a list of 3 parameters for each analyzed file.
 * Gplus_init: Initial Guess for the lorentzian fit parameters (3) of the G<sup>+</sup> band, if nt=1, or G band, if nt=0.There sould be a list of 3 parameters for each analyzed file.
 * D_init: Initial Guess for the lorentzian fit parameters (3) of the D band. There sould be a list of 3 parameters for each analyzed file.
 * init_2D: Initial Guess for the lorentzian fit parameters (3) of the 2D band. There sould be a list of 3 parameters for each analyzed file.
 
+### Plotting Options
 
-
+User can decided whether or not to produce and save specific plots by assigning 1 or 0 to these variables
+* raw: Set to 1 to plot all raw spectra for each of the files and save the plot. Set to 0 to ignore.
+* norm: Set to 1 to plot all normalized spectra for each of the files and save the plot. Set to 0 to ignore.
+* rng: Set to 1 to plot the spectral regions chosen for  G, D and 2D bands in intensity calculation for each of the files and save the plot. Set to 0 to ignore.
+* peaks: Set to 1 to plot found peaks in the RBM region. Set to 0 to ignore.
+* correlations: Set to 1 to Plot correlations between peaks shifts and I<sub>d</sub>/I<sub>g</sub>
 
 ## Outputs
 *
