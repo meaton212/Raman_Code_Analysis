@@ -60,7 +60,7 @@ The following variables must be changed by the user before running the code
 ### RBM
 * rbm: set to 1 if Radial breathing mode (RBM) analysis is desired. Set to 0 to ignore.
 * RBMregion_Low & RBMregion_Low: Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the RBM analysis will occur
-* r323
+* Prom: This value sets the max limit at which peaks will be considered. This can be a single number, or a list of values that different for each file. Local maxima with a maximum height lower than Prom will be discarded.
 
 
 
