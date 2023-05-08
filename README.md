@@ -106,7 +106,7 @@ User can decided whether or not to produce and save specific plots by assigning 
 ### Output Text Files
 
 
-### Images
+### Figure Images
 Image type is determined by the extension defined in the imgtype variable
 
 ##### Histograms
