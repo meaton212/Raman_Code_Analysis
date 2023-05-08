@@ -27,7 +27,7 @@ Additionally, the Raman code will plot the spectra for each file in several plot
 * Average Spectra for each file
 * Spectral Range for Intensity Ratio
 
-Finally, the code can also plot a heat map of any of the spectral features in 2D for any spatially distributed Raman spectra. The final file will be interactive for the user so they can select specifc pixels in the map and overlay different pixels' spectra in a single plot.
+Finally, the code can also plot a heat map of any of the spectral features in 2D for any spatially distributed Raman spectra. Only the final file will be interactive for the user so they can select specifc pixels in the map and overlay different pixels' spectra in a single plot.
 
 The user can plot Raman maps of specific spectral features for samples where the spatial arrangement is relevant, such as in the case of controlled patterning of nanomaterials.  
 
@@ -55,6 +55,7 @@ The following variables must be changed by the user before running the code
 * delim: delimiter of the data in the data file
 * type_: file type/extension for the data file (i.e. '.txt', '.csv', etc...)
 * name: list of names used in the legend for each of the files in file_names
+* imgtype: the type/extension for the output images (i.e. '.svg', '.jpg', '.png')
 * dens: (True or False) Select True for histograms to be normalized, select False for non-normalized histograms
 
 ### Spectral Bounds
@@ -99,7 +100,18 @@ User can decided whether or not to produce and save specific plots by assigning 
 * ylen: length of y axis in μm
 
 
+
 ## Outputs
-*
+
+### Output Text Files
+
+
+### Images
+Image type is determined by the extension defined in the imgtype variable
+
+#### Histograms
+Histograms of the followin
+
+
 
 
