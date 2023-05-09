@@ -17,8 +17,8 @@ Additionally, the G band can be split into G+ and G- bands
 The user also has the option to locate and plot the statistical distribution of the RBM modes (optional)
 
 The code will also compare several spectral features in the following correlation plots:
-* G band vs. Intensity ratio between the D and G bands
-* D band vs. Intensity ratio between the D and G bands
+* G band vs. Intensity ratio between the D and G bands (I<sub>d</sub>/I<sub>g</sub>)
+* D band vs. I<sub>d</sub>/I<sub>g</sub>
 * 2D band vs. G band
 
 Additionally, the Raman code will plot the spectra for each file in several plots, if the user wishes
@@ -110,7 +110,22 @@ User can decided whether or not to produce and save specific plots by assigning 
 Image type is determined by the extension defined in the imgtype variable
 
 ##### Histograms
-Histograms of the followin
+Histograms of the distributions for all curves for each file for the following spectral data will be saved:
+* Intensity ratio, I<sub>d</sub>/I<sub>g</sub> as "IntensityRatio.imgtype"
+* G band (or G<sup>+</sup> and G<sup>-</sup>, if nt = 1) as "Gband.imgtype"
+* D band as "Dband.imgtype"
+* 2D band as "2DBand.imgtype"
+* RBM (if rbm = 1) as "RBM.imgtype"
+*
+Each histogram will contain the data for all files analysized in a single histogram
+
+
+#### Spectra
+The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved as the following:
+* Average spectra of each file. A single curve for each file on a single plot. Saved as "Avg Spectra.imgtype"
+* raw data (if raw = 1). Each spectra in a file plotted on a single subplot, with a subplot for each file. Saved as "Raw Data.imgtype"
+* nor
+* 
 
 
 
