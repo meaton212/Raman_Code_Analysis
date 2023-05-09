@@ -116,17 +116,27 @@ Histograms of the distributions for all curves for each file for the following s
 * D band as "Dband.imgtype"
 * 2D band as "2DBand.imgtype"
 * RBM (if rbm = 1) as "RBM.imgtype"
-*
+* G band Intensity ratio, I<sub>G<sup>+</sup></sub>/I<sub>G<sup>-</sup></sub> as "IntensityRatioG+G-.imgtype", if nt = 1.
+
 Each histogram will contain the data for all files analysized in a single histogram
 
+#### Correlations
+If correlations = 1, a single graphic with 3 subplots of the following relationships will be saved:
+* G band vs. I<sub>d</sub>/I<sub>g</sub>
+* D band vs. I<sub>d</sub>/I<sub>g</sub>
+* 2D band vs. G band
+
+The data for each spectra is plotted as a point. The data for each file is fit to a linear regression, with the linear regression line overlayed with the data. The data for each file is plot on the same graph, with a different color for each file. 
 
 #### Spectra
 The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved as the following:
 * Average spectra of each file. A single curve for each file on a single plot. Saved as "Avg Spectra.imgtype"
-* raw data (if raw = 1). Each spectra in a file plotted on a single subplot, with a subplot for each file. Saved as "Raw Data.imgtype"
-* nor
+* raw data (if raw = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Raw Data.imgtype"
+* normalized spectra (if norm = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Normalized Data.imgtype"
+* The spectral regions chosen for G, D and 2D bands in intensity calculation (if rng=1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "SpecRangeIR.imgtype"
+* The RBM regions with the selected peaks chosen for each spectra marked (if rbm = 1 and peaks = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Peak Data.imgtype"
+* The Lorentian fit curves overlayed over normalized spectra for the G band, D band, and 2D band (if lorentz = 1). Each band is plot in a subplot, with each spectra for each region in each subplot. There is a separate graphic for each file. Saved as Lorentz_fit_"name"."imgtype"
 * 
-
 
 
 
