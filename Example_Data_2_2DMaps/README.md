@@ -6,7 +6,8 @@ Before running code, make sure to change the path in the Input Data Section (Sta
 
 Example:
 
-path='.../Example_Data_2_2DMaps/'
+Uncomment the variable for  path (line 55)
+path=os.getcwd + '/Example_Data_2_2DMaps/'
 
 Uncomment the variable for filename below (line 62)
 * file_name=['p-G 2.txt']
@@ -15,8 +16,11 @@ Uncomment the variable for filename below (line 62)
 Uncomment the variable for name below (line 71)
 * name= ['patterned graphene']
 
-Check to see that "maps" is set to 1 
-* Set maps = 1
+Change the following Variables
+* Set maps = 1 (Line 157)
+* Set lorentz = 0 (Line 124)
+* Set nt = 0 (Line 125)
+* Set rbm = 0 (Line 109)
 
 Leave the rest as the default data.
 
