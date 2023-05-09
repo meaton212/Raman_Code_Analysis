@@ -1,10 +1,9 @@
 # load packages
 import pandas as pd
-import glob, os
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib.ticker import MaxNLocator
 from scipy.optimize import curve_fit
 
@@ -52,13 +51,15 @@ def round_sig(x, sig=2):
 #The location and names of the files should be indicated in path and file_name
 #variables, respectively. The total number of files should be included in
 #total.
-path=r"C:\Users\matte\Documents\IMDEA\Data\Raman\2023\02-Feb\07-Test Lorentz\\"
+path=os.getcwd()+'/Example_Data_1/'
+#path=os.getcwd()+'/Example_Data_2_2DMaps/' #Uncomment if you are running the Example_Data_2_2DMaps
+
 os.chdir(path) #Changes folder to the selected path
 
-
 file_name=['6,5-SWCNTs(Porf)_10mW_25x1000,9-15cm-1,2co,1s_2',
-           'CuMINT_10mW_25x1000,9-15cm-1,2co,1s_0',
-           ]
+           'CuMINT_10mW_25x1000,9-15cm-1,2co,1s_0' ]
+
+# file_name=['p-G 2']  #Uncomment if you are running the Example_Data_2_2DMaps
 
 total=len(file_name) #Total Number of files
 
@@ -66,6 +67,9 @@ total=len(file_name) #Total Number of files
 delim='\t'  #Define delimeter of data in data file
 type_='.txt'
 name=['6,5 SWNT','CuMINT']#Indicate here the names of the data for legend and titles
+ 
+# name= ['patterned graphene']  #Uncomment if you are running the Example_Data_2_2DMaps
+
 
 imgtype='.svg' #What type of images do you want to save
 
