@@ -7,6 +7,6 @@ Example:
 path='.../Example_Data_1/'
 
 Check to see that "maps" is set to 0 
-Set maps = 0,
+* Set maps = 0
 
 Leave the rest as the default data.
