@@ -105,6 +105,28 @@ User can decided whether or not to produce and save specific plots by assigning 
 
 ### Output Text Files
 
+##### Spectral Feature Data
+After analyzing all the data, the code will output a .csv file for each file analyzed. The resulting file will contain the spectral feature data for each spectrum analyzed in the file. The columns are: 
+* Spectra #: The index for each spectrum
+* Intensity_G: The intensity at the G band shift (or G<sup>+</sup> if nt = 1)
+* Shift_G: The Raman shift of the G band in cm<sup>-1</sup> (or G<sup>+</sup> if nt = 1)
+* Intensity_D: The intensity at the D band shift
+* Shift_D: The Raman shift of the D band in cm<sup>-1</sup>
+* Intensity_2D: The intensity at the 2D band shift
+* Shift_2D: The Raman shift of the 2D band in cm<sup>-1</sup>
+* Intensity Ratio: The intensity ratio between the D and G bands I<sub>d</sub>/I<sub>g</sub>
+
+The file is saved as "name_results.csv"
+
+##### Selected Spectra Data from 2D Map
+If maps = 1, then the 2D heat map of the spectral feature defined in the map_var variable will be mapped in a 2D heat map.
+
+For the last file analyzed, the user can select specfic pixels from the map, and plot the spectra of the selected pixels in a new figure. The user can select multiple pixels and overlay the spectra. 
+
+The selected spectra of the most recently overlayed selected pixel spectra will be output in a .csv file containing the full spectra selected. The first column will be the raman shift in cm<sup>-1</sup> and each subsequent column are the intensity values for each selected spectrum, with the header giving the x and y positions of the pixel.
+
+The data is saved as "Selected_Spectra.csv"
+
 
 ### Figure Images
 Image type is determined by the extension defined in the imgtype variable
@@ -120,7 +142,7 @@ Histograms of the distributions for all curves for each file for the following s
 
 Each histogram will contain the data for all files analysized in a single histogram
 
-#### Correlations
+##### Correlations
 If correlations = 1, a single graphic with 3 subplots of the following relationships will be saved:
 * G band vs. I<sub>d</sub>/I<sub>g</sub>
 * D band vs. I<sub>d</sub>/I<sub>g</sub>
@@ -128,15 +150,22 @@ If correlations = 1, a single graphic with 3 subplots of the following relations
 
 The data for each spectra is plotted as a point. The data for each file is fit to a linear regression, with the linear regression line overlayed with the data. The data for each file is plot on the same graph, with a different color for each file. 
 
-#### Spectra
+##### Spectra
 The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved as the following:
 * Average spectra of each file. A single curve for each file on a single plot. Saved as "Avg Spectra.imgtype"
 * raw data (if raw = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Raw Data.imgtype"
 * normalized spectra (if norm = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Normalized Data.imgtype"
 * The spectral regions chosen for G, D and 2D bands in intensity calculation (if rng=1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "SpecRangeIR.imgtype"
 * The RBM regions with the selected peaks chosen for each spectra marked (if rbm = 1 and peaks = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. Saved as "Peak Data.imgtype"
-* The Lorentian fit curves overlayed over normalized spectra for the G band, D band, and 2D band (if lorentz = 1). Each band is plot in a subplot, with each spectra for each region in each subplot. There is a separate graphic for each file. Saved as Lorentz_fit_"name"."imgtype"
-* 
+* The Lorentian fit curves overlayed over normalized spectra for the G band, D band, and 2D band (if lorentz = 1). Each band is plot in a subplot, with each spectra for each region in each subplot. There is a separate graphic for each file. Saved as "Lorentz_fit_"ame.imgtype"
+
+##### 2D Map
+If maps = 1, then the 2D heat map of the spectral feature defined in the map_var variable will be saved for each file as "name_2DMap_map_var.imgtype So, for a file with filename "p-G 2.txt" and name "patterned graphene" with imgtype ".svg" and map_var "I" will save as "patterned graphene_2DMap_I.svg"
+
+For the last file analyzed, the user can select specfic pixels from the map, and plot the spectra of the selected pixels in a new figure. The user can select multiple pixels and overlay the spectra. The Most recent figure will be saved as "SelectedSpectra.svg"
+
+
+
 
 
 
