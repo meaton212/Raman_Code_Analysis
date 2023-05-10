@@ -4,7 +4,7 @@ Before running code, make sure to change the path in the Input Data Section (Sta
 
 Example:
 
-path=os.chwd() + '/Example_Data_1/' (line 54)
+path= '../Example Data/Example_Data_1/' (line 54)
 
 Check to see that the following variables are correctly selected
 * Set maps = 0 (Line 157)
