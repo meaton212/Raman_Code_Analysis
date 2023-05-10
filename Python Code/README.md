@@ -175,7 +175,7 @@ For the last file analyzed, the user can select specfic pixels from the map, and
 
 
 
-##Example Data
+## Example Data
 
 Example Data is provided to test out various aspects of the code
 
