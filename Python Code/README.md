@@ -175,8 +175,53 @@ For the last file analyzed, the user can select specfic pixels from the map, and
 
 
 
+##Example Data
+
+Example Data is provided to test out various aspects of the code
+
+### Example Data Set 1
+Tests out multiple (2) Raman files to comare the spectral data between them, as well as lorentzian fitting,  G band splitting, and RBMs
+
+Before running code, make sure to change the path in the Input Data Section,  (Starting on line 47) if running in a differnt folder
+
+Example:
+
+path= '../Example Data/Example_Data_1/' (line 54)
+
+leave default file_names
+
+Check to see that the following variables are correctly selected
+* Set maps = 0 (Line 157)
+* Set lorentz = 1 (Line 124)
+* Set nt = 1 (Line 125)
+* Set rbm = 1 (Line 109)
+
+Leave the rest as the default values.
+
+### Example Data Set 2
+Tests out 2D Mapping Feature for a patterned graphene sample with 32 x 32 datapoints
+
+Before running code, make sure to change the path in the Input Data Section (Starting on line 47)
+
+Example:
+
+Uncomment the variable for  path (line 55)
+path='../Example Data/Example_Data_2/' (line 54)
+
+Uncomment the variable for filename below (line 62)
+* file_name=['p-G 2.txt']
 
 
+Uncomment the variable for name below (line 71)
+* name= ['patterned graphene']
+
+Change the following Variables
+* Set maps = 1 (Line 157)
+* Set lorentz = 0 (Line 124)
+* Set nt = 0 (Line 125)
+* Set rbm = 0 (Line 109)
+
+Leave the rest as the default data.
 
 
 
