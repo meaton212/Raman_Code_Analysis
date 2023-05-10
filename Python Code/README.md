@@ -8,7 +8,7 @@ This code processes Raman spectral data files consisting of mulitiple spectra an
 * G band
 * D band
 * 2D band
-* Intensity ratio between the D and G bands
+* Intensity ratio between the D and G bands (I<sub>d</sub>/I<sub>g</sub>)
 
 It has the option of finding these bands through the maximum value in a defined range, or through the fitting a lorentizan distribution to the spectral data
 
