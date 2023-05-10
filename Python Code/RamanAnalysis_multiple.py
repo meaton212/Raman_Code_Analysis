@@ -51,10 +51,10 @@ def round_sig(x, sig=2):
 #The location and names of the files should be indicated in path and file_name
 #variables, respectively. The total number of files should be included in
 #total.
-path=os.getcwd()+'/Example_Data_1/'
-#path=os.getcwd()+'/Example_Data_2_2DMaps/' #Uncomment if you are running the Example_Data_2_2DMaps
+path='../Example Data/Example_Data_1/'
 
-os.chdir(path) #Changes folder to the selected path
+#path='../Example Data/Example_Data_2_2DMaps/' #Uncomment if you are running the Example_Data_2_2DMaps
+
 
 file_name=['6,5-SWCNTs(Porf)_10mW_25x1000,9-15cm-1,2co,1s_2',
            'CuMINT_10mW_25x1000,9-15cm-1,2co,1s_0' ]
@@ -69,7 +69,6 @@ type_='.txt'
 name=['6,5 SWNT','CuMINT']#Indicate here the names of the data for legend and titles
  
 #name= ['patterned graphene']  #Uncomment if you are running the Example_Data_2_2DMaps
-
 
 imgtype='.svg' #What type of images do you want to save
 
@@ -168,13 +167,15 @@ ylen=38;  #y len in um
 
 
 #%%Code Starts here:
+os.chdir(path) #Changes folder to the selected path
+
 for z in range(0,total):
 
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%%
 #%%#%%#%%#%%#%%#Import data #%%#%%#%%#%%#%%#%%%
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%%
 
-    data = pd.read_csv(path+file_name[z]+type_,delimiter=delim,decimal='.',header=None);
+    data = pd.read_csv(file_name[z]+type_,delimiter=delim,decimal='.',header=None);
     data=data.to_numpy()
     Shift = np.array(data[:,0]); #Raman shift is the first column of the file
     Intensity=data[:,1:]; #Raman intensities are all data from column 2 til end
