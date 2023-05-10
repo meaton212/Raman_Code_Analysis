@@ -59,7 +59,7 @@ os.chdir(path) #Changes folder to the selected path
 file_name=['6,5-SWCNTs(Porf)_10mW_25x1000,9-15cm-1,2co,1s_2',
            'CuMINT_10mW_25x1000,9-15cm-1,2co,1s_0' ]
 
-# file_name=['p-G 2']  #Uncomment if you are running the Example_Data_2_2DMaps
+#file_name=['p-G 2']  #Uncomment if you are running the Example_Data_2_2DMaps
 
 total=len(file_name) #Total Number of files
 
@@ -68,7 +68,7 @@ delim='\t'  #Define delimeter of data in data file
 type_='.txt'
 name=['6,5 SWNT','CuMINT']#Indicate here the names of the data for legend and titles
  
-# name= ['patterned graphene']  #Uncomment if you are running the Example_Data_2_2DMaps
+#name= ['patterned graphene']  #Uncomment if you are running the Example_Data_2_2DMaps
 
 
 imgtype='.svg' #What type of images do you want to save
@@ -106,7 +106,7 @@ band3High=2800; #Upper limit in cm-1
 
 
 #RBM modes
-rbm=1# Set to 1 if RBM analysis desired
+rbm=0# Set to 1 if RBM analysis desired
 RBMregion_Low=200; #Lower limit in cm-1
 RBMregion_High=360; #Upper limit in cm-1
 Prom=[0.01]; #This value sets the max limit at which peaks will be considered. 
@@ -309,10 +309,10 @@ for z in range(0,total):
        if nt==1:
            
            #Define initial guesses
-           InitGuess_G=[Gmin_init[z][2]*Gmin_init[z][1],
+           InitGuess_G=[Gmin_init[z][2]*((Gmin_init[z][1]/2)**2),
                         Gmin_init[z][0],
                         (Gmin_init[z][1]/2)**2,
-                        Gplus_init[z][2]*Gplus_init[z][1],
+                        Gplus_init[z][2]*((Gplus_init[z][1]/2)**2),
                         Gplus_init[z][0],
                         (Gplus_init[z][1]/2)**2,
                         0.1]
@@ -324,27 +324,35 @@ for z in range(0,total):
                                
            I_G_fit.append(fit_func(Shift_rng1, *gamma_G))
            
-           if gamma_G[1]<gamma_G[4]:
-                  center_Gmin.append(gamma_G[1])
-                  FWHM_Gmin.append(2*np.sqrt(gamma_G[2]))
-                  Int_Gmin.append(gamma_G[0]/gamma_G[2])
-                  center_Gplus.append(gamma_G[4])
-                  FWHM_Gplus.append(2*np.sqrt(gamma_G[5]))
-                  Int_Gplus.append(gamma_G[3]/gamma_G[5])
+           if np.logical_and(np.logical_and(gamma_G[1]>band1Low,gamma_G[4]>band1Low),np.logical_and(gamma_G[1]<band1High,gamma_G[4]<band1High))==1:
+               if gamma_G[1]<gamma_G[4]:
+                      center_Gmin.append(gamma_G[1])
+                      FWHM_Gmin.append(2*np.sqrt(gamma_G[2]))
+                      Int_Gmin.append(gamma_G[0]/gamma_G[2])
+                      center_Gplus.append(gamma_G[4])
+                      FWHM_Gplus.append(2*np.sqrt(gamma_G[5]))
+                      Int_Gplus.append(gamma_G[3]/gamma_G[5])
+               else:
+                     center_Gplus.append(gamma_G[1])
+                     FWHM_Gplus.append(2*np.sqrt(gamma_G[2]))
+                     Int_Gplus.append(gamma_G[0]/gamma_G[2])
+                     center_Gmin.append(gamma_G[4])
+                     FWHM_Gmin.append(2*np.sqrt(gamma_G[5]))
+                     Int_Gmin.append(gamma_G[3]/gamma_G[5])
            else:
-                 center_Gplus.append(gamma_G[1])
-                 FWHM_Gplus.append(2*np.sqrt(gamma_G[2]))
-                 Int_Gplus.append(gamma_G[0]/gamma_G[2])
-                 center_Gmin.append(gamma_G[4])
-                 FWHM_Gmin.append(2*np.sqrt(gamma_G[5]))
-                 Int_Gmin.append(gamma_G[3]/gamma_G[5])
+                     center_Gplus.append(np.nan)
+                     FWHM_Gplus.append(np.nan)
+                     Int_Gplus.append(np.nan)
+                     center_Gmin.append(np.nan)
+                     FWHM_Gmin.append(np.nan)
+                     Int_Gmin.append(np.nan)
                  
         #%%Lorentizan Fits                
        if lorentz==1:
            
            #D bands
            #Define Initial guesses
-           InitGuess_D=[D_init[z][2]*D_init[z][1],
+           InitGuess_D=[D_init[z][2]*((D_init[z][1]/2)**2),
                         D_init[z][0],
                         (D_init[z][1]/2)**2,
                         0];
@@ -355,15 +363,21 @@ for z in range(0,total):
            gamma_D ,pcov2= curve_fit(fit_func2, Shift_rng2, Intensity_2rng[...,n], 
                                       InitGuess_D,bounds=(0,np.inf),maxfev=10000)
            
+           
            I_D_fit.append(fit_func2(Shift_rng2, *gamma_D))
-           center_D=np.append(center_D,gamma_D[1]);
-           FWHM_D.append(2*np.sqrt(gamma_D[2]));
-           Int_D=np.append(Int_D,gamma_D[0]/gamma_D[2]); 
- 
+           
+           if np.logical_and(gamma_D[1]>band2Low,gamma_D[1]<band2High)==1:
+               center_D=np.append(center_D,gamma_D[1]);
+               FWHM_D.append(2*np.sqrt(gamma_D[2]));
+               Int_D=np.append(Int_D,gamma_D[0]/gamma_D[2]); 
+           else:
+               center_D=np.append(center_D,np.nan);
+               FWHM_D.append(np.nan);
+               Int_D=np.append(Int_D,np.nan); 
     
            #2D bands
            #Define Initial guesses
-           InitGuess_2D=[init_2D[z][2]*init_2D[z][1],
+           InitGuess_2D=[init_2D[z][2]*((init_2D[z][1]/2)**2),
                         init_2D[z][0],
                         (init_2D[z][1]/2)**2,
                         0];    
@@ -373,13 +387,21 @@ for z in range(0,total):
                                       InitGuess_2D, bounds=(0,np.inf),maxfev=10000)
            
            I_2D_fit.append(fit_func2(Shift_rng3, *gamma_2D))
-           center_2D=np.append(center_2D,gamma_2D[1]);
-           FWHM_2D.append(2*np.sqrt(gamma_2D[2]));
-           Int_2D=np.append(Int_2D,gamma_2D[0]/gamma_2D[2]);  
+           
+           if np.logical_and(gamma_2D[1]>band3Low,gamma_2D[1]<band3High)==1:
+
+               center_2D=np.append(center_2D,gamma_2D[1]);
+               FWHM_2D.append(2*np.sqrt(gamma_2D[2]));
+               Int_2D=np.append(Int_2D,gamma_2D[0]/gamma_2D[2]);  
+           else:
+               center_2D=np.append(center_2D,np.nan);
+               FWHM_2D.append(np.nan);
+               Int_2D=np.append(Int_2D,np.nan);                
+        
     
            if nt==0:
                #Lorentzian G fit if no G+/G- fit
-               InitGuess_G=[Gplus_init[z][2]*Gplus_init[z][1],
+               InitGuess_G=[Gplus_init[z][2]*((Gplus_init[z][1]/2)**2),
                             Gplus_init[z][0],
                             (Gplus_init[z][1]/2)**2,
                             0];
@@ -389,28 +411,34 @@ for z in range(0,total):
                                 InitGuess_G, bounds=(0,np.inf),maxfev=10000)
                
                I_G_fit.append(fit_func2(Shift_rng1, *gamma_G))
-               center_G=np.append(center_G,gamma_G[1]);
-               FWHM_G.append(2*np.sqrt(gamma_G[2]));
-               Int_G=np.append(Int_G,gamma_G[0]/gamma_G[2]); 
+               
+               if np.logical_and(gamma_G[1]>band1Low,gamma_G[1]<band1High)==1:
+                   center_G=np.append(center_G,gamma_G[1]);
+                   FWHM_G.append(2*np.sqrt(gamma_G[2]));
+                   Int_G=np.append(Int_G,gamma_G[0]/gamma_G[2]); 
+               else:
+                   center_G=np.append(center_G,np.nan);
+                   FWHM_G.append(np.nan);
+                   Int_G=np.append(Int_G,np.nan);   
                
  
     if nt==1:
         I21=Int_D/Int_Gplus;
-        G_av=np.mean(center_Gplus)
-        G_std=np.std(center_Gplus)    
-        Gmin_av=np.mean(center_Gmin)
-        Gmin_std=np.std(center_Gmin)  
+        G_av=np.nanmean(center_Gplus)
+        G_std=np.nanstd(center_Gplus)    
+        Gmin_av=np.nanmean(center_Gmin)
+        Gmin_std=np.nanstd(center_Gmin)  
     else:
         I21=Int_D/Int_G;
-        G_av=np.mean(center_G)
-        G_std=np.std(center_G)
+        G_av=np.nanmean(center_G)
+        G_std=np.nanstd(center_G)
         
-    I21_av=np.mean(I21);
-    I21_error=np.std(I21);
-    D_av=np.mean(center_D)
-    D_std=np.std(center_D)
-    D2_av=np.mean(center_2D)
-    D2_std=np.std(center_2D)
+    I21_av=np.nanmean(I21);
+    I21_error=np.nanstd(I21);
+    D_av=np.nanmean(center_D)
+    D_std=np.nanstd(center_D)
+    D2_av=np.nanmean(center_2D)
+    D2_std=np.nanstd(center_2D)
     
 
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%
@@ -783,23 +811,28 @@ for z in range(0,total):
 
     if nt==1:# In the case where there are separate G+/G- peaks, use G+
         #Linear fit Intensity Ratio vs G+
-        fit_I21_G=np.polyfit(I21,center_Gplus,1)
+        
+        idx = np.isfinite(I21) & np.isfinite(center_Gplus)
+        fit_I21_G=np.polyfit(np.array(I21)[idx],np.array(center_Gplus)[idx],1)
         #Plot Intensity Ratio vs G+
         ax_Corr[0].plot(I21,center_Gplus,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_I21_G[0],3)))
       
         
         #Linear fit 2D vs Gplus
-        fit_2D_G=np.polyfit(center_Gplus,center_2D,1)
+        idx = np.isfinite(center_Gplus) & np.isfinite(center_2D)
+        fit_2D_G=np.polyfit(np.array(center_Gplus)[idx],np.array(center_2D)[idx],1)
         #Plot 2D vs G
         ax_Corr[2].plot(center_Gplus,center_2D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_2D_G[0],3)))
         xx2=np.linspace(min(center_Gplus),max(center_Gplus),100)
 
     else:
-        fit_I21_G=np.polyfit(I21,center_G,1)
+        idx = np.isfinite(I21) & np.isfinite(center_G)
+        fit_I21_G=np.polyfit(np.array(I21)[idx],np.array(center_G)[idx],1)
         ax_Corr[0].plot(I21,center_G,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_I21_G[0],3)))
         
         #Linear fit 2D vs G
-        fit_2D_G=np.polyfit(center_G,center_2D,1)
+        idx = np.isfinite(center_G) & np.isfinite(center_2D)
+        fit_2D_G=np.polyfit(np.array(center_G)[idx],np.array(center_2D)[idx],1)
         #Plot 2D vs G
         ax_Corr[2].plot(center_G,center_2D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_2D_G[0],3)))
         xx2=np.linspace(min(center_G),max(center_G),100)
@@ -807,7 +840,8 @@ for z in range(0,total):
 
     xx=np.linspace(min(I21),max(I21),100)
     ax_Corr[0].plot(xx,fit_I21_G[0]*xx+fit_I21_G[1],lw=2,ls='-',color=clr[round(len(clr)/3)])
-    fit_I21_D=np.polyfit(I21,center_D,1)    
+    idx = np.isfinite(I21) & np.isfinite(center_D)
+    fit_I21_D=np.polyfit(np.array(I21)[idx],np.array(center_D)[idx],1)  
     ax_Corr[1].plot(I21,center_D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_I21_D[0],3)))
     ax_Corr[1].plot(xx,fit_I21_D[0]*xx+fit_I21_D[1],lw=2,ls='-',color=clr[round(len(clr)/3)])
 
