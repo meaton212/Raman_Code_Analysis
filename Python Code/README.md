@@ -209,7 +209,7 @@ Uncomment the variable for  path (line 55)
 path='../Example Data/Example_Data_2/' (line 54)
 
 Uncomment the variable for filename below (line 62)
-* file_name=['p-G 2.txt']
+* file_name=['mapExample.txt']
 
 
 Uncomment the variable for name below (line 71)
