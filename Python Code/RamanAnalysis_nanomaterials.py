@@ -59,7 +59,7 @@ path='../Example Data/Example_Data_1/'
 file_name=['6,5-SWCNT',
            'CuMINT' ]
 
-#file_name=['p-G 2']  #Uncomment if you are running the Example_Data_2_2DMaps
+#file_name=['mapExample']  #Uncomment if you are running the Example_Data_2_2DMaps
 
 total=len(file_name) #Total Number of files
 
