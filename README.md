@@ -22,7 +22,7 @@ The code will also compare several spectral features in the following correlatio
 * D band vs. I<sub>d</sub>/I<sub>g</sub>
 * 2D band vs. G band
 
-Additionally, the Raman code will plot the spectra for each file in several plots, if the user wishes
+Additionally, the Raman code can plot the spectra for each file in several plots
 * Raw Spectra
 * Normalized Spectra
 * Average Spectra for each file
