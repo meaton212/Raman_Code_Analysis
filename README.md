@@ -31,6 +31,15 @@ Finally, the code can also plot a heat map of any of the spectral features in 2D
 
 The user can plot Raman maps of specific spectral features for samples where the spatial arrangement is relevant, such as in the case of controlled patterning of nanomaterials.  
 
+## Python Packages
+
+To run this code, make sure the following Python packages are installed:
+* pandas
+* numpy
+* os
+* matplotlib
+* scipy
+* tqdm
 
 ## Data format
 
