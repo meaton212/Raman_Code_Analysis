@@ -56,8 +56,8 @@ path='../Example Data/Example_Data_1/'
 #path='../Example Data/Example_Data_2_2DMaps/' #Uncomment if you are running the Example_Data_2_2DMaps
 
 
-file_name=['6,5-SWCNTs(Porf)_10mW_25x1000,9-15cm-1,2co,1s_2',
-           'CuMINT_10mW_25x1000,9-15cm-1,2co,1s_0' ]
+file_name=['6,5-SWCNT',
+           'CuMINT' ]
 
 #file_name=['p-G 2']  #Uncomment if you are running the Example_Data_2_2DMaps
 
@@ -84,6 +84,7 @@ den=True
 #the maximun within the specified spectral rng: 
 normLow=1500; #Lower limit in cm-1
 normHigh=1700; #Upper limit in cm-1
+
 
 #%%Peak identification: Intensity and Shifts
 #Intensity ratio Id/Ig will be calculated by taking: max Int value-min Int
