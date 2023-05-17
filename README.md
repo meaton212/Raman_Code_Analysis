@@ -2,6 +2,9 @@
 
 The code is available in Both Python and MATLAB. Please select the relevent folder for the specific code. Each code has its own README file outlining the important information specific to the code.
 
+
+Cite as: 10.26434/chemrxiv-2023-5nhdj
+
 ## General Summary
 
 This code processes Raman spectral data files consisting of mulitiple spectra and analyzes each curve indivually for their relavent spectral features and provides the correspond statistical distributions of the position, widths and intensity of the main Raman bands within a sample, namely:
