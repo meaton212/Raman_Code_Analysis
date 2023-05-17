@@ -3,7 +3,7 @@
 The code is available in Both Python and MATLAB. Please select the relevent folder for the specific code. Each code has its own README file outlining the important information specific to the code.
 
 
-Cite as: 10.26434/chemrxiv-2023-5nhdj
+Cite as: [DOI: 10.26434/chemrxiv-2023-5nhdj](https://chemrxiv.org/engage/chemrxiv/article-details/645cc378fb40f6b3ee660d89)
 
 ## General Summary
 
