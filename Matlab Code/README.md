@@ -4,7 +4,7 @@ Date: 09-05-2023
 
 Matlab code: RamanAnalysis\_nanomaterials.m
 
-Cite as: XXX
+Cite as: [DOI: 10.26434/chemrxiv-2023-5nhdj](https://chemrxiv.org/engage/chemrxiv/article-details/645cc378fb40f6b3ee660d89)
 
 **SUMMARY**
 
