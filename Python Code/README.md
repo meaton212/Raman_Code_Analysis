@@ -1,5 +1,6 @@
 # Raman Analysis Python Code
 
+Cite as: [DOI: 10.26434/chemrxiv-2023-5nhdj](https://chemrxiv.org/engage/chemrxiv/article-details/645cc378fb40f6b3ee660d89)
 
 ## Summary
 
