@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import MaxNLocator
 from scipy.optimize import curve_fit
+from sklearn.metrics import r2_score
 
 from tqdm import tqdm
 
@@ -23,7 +24,6 @@ from RBMinputs import RBMinputs
 from LorentzInputsDouble1 import LorentzInputsDouble1
 from LorentzInputs import LorentzInputs
 from PlotsInputs import PlotsInputs
-#from InteractiveMap import onpick
 
 plt.close('all')
 
@@ -351,12 +351,14 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                    return (g1/((x-g2)**2+g3)+g4)# lorentz
                
                gamma_2 ,pcov2= curve_fit(fit_func2, Shift_rng2, Intensity_2rng[...,n], 
-                                          InitGuess_2,bounds=(0,np.inf),maxfev=10000)
+                                          InitGuess_2,bounds=([0,Shift[ind2Low],0,0],
+                                        [np.inf,Shift[ind2High],0.25*(Shift[ind2High]-Shift[ind2Low])**2,np.inf]),
+                                        maxfev=10000)
                
                
                I_2_fit.append(fit_func2(Shift_rng2, *gamma_2))
                
-               if np.logical_and(gamma_2[1]>band2Low,gamma_2[1]<band2High)==1:
+               if r2_score(I_2_fit[n],Intensity_2rng[...,n])>=0.5:
                    center_2=np.append(center_2,gamma_2[1]);
                    FWHM_2=np.append(FWHM_2,2*np.sqrt(gamma_2[2]));
                    Int_2=np.append(Int_2,gamma_2[0]/gamma_2[2]); 
@@ -374,11 +376,13 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
           
                
                gamma_3 ,pcov2= curve_fit(fit_func2, Shift_rng3, Intensity_3rng[...,n], 
-                                          InitGuess_3, bounds=(0,np.inf),maxfev=10000)
+                                          InitGuess_3, bounds=([0,Shift[ind3Low],0,0],
+                                        [np.inf,Shift[ind3High],0.25*(Shift[ind3High]-Shift[ind3Low])**2,np.inf]),
+                                        maxfev=10000)
                
                I_3_fit.append(fit_func2(Shift_rng3, *gamma_3))
                
-               if np.logical_and(gamma_3[1]>band3Low,gamma_3[1]<band3High)==1:
+               if r2_score(I_3_fit[n],Intensity_3rng[...,n])>=0.5:
     
                    center_3=np.append(center_3,gamma_3[1]);
                    FWHM_3=np.append(FWHM_3,2*np.sqrt(gamma_3[2]));
@@ -403,11 +407,14 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                        return (g1/((x-g2)**2+g3)+g4/((x-g5)**2+g6)+g7)# lorentz
         
                    gamma_1 ,pcov2= curve_fit(fit_func, Shift_rng1, Intensity_1rng[...,n], InitGuess_1, 
-                                             bounds=(0,np.inf),maxfev=10000)
+                                             bounds=([0,Shift[ind1Low],0,0,Shift[ind1Low],0,0],
+                                           [np.inf,Shift[ind1High],0.25*(Shift[ind1High]-Shift[ind1Low])**2,np.inf,
+                                            Shift[ind1High],0.25*(Shift[ind1High]-Shift[ind1Low])**2,np.inf]),
+                                           maxfev=10000)
                                        
                    I_1_fit.append(fit_func(Shift_rng1, *gamma_1))
                    
-                   if np.logical_and(np.logical_and(gamma_1[1]>band1Low,gamma_1[4]>band1Low),np.logical_and(gamma_1[1]<band1High,gamma_1[4]<band1High))==1:
+                   if r2_score(I_1_fit[n],Intensity_1rng[...,n])>=0.5:
                        if gamma_1[1]<gamma_1[4]:
                               center_1min=np.append(center_1min,gamma_1[1])
                               FWHM_1min=np.append(FWHM_1min,2*np.sqrt(gamma_1[2]))
@@ -441,11 +448,13 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                    
                     
                     gamma_1 ,pcov2= curve_fit(fit_func2, Shift_rng1, Intensity_1rng[...,n], 
-                                     InitGuess_1, bounds=(0,np.inf),maxfev=10000)
+                                     InitGuess_1, bounds=([0,Shift[ind1Low],0,0],
+                                   [np.inf,Shift[ind1High],0.25*(Shift[ind1High]-Shift[ind1Low])**2,np.inf]),
+                                   maxfev=10000)
                     
                     I_1_fit.append(fit_func2(Shift_rng1, *gamma_1))
                     
-                    if np.logical_and(gamma_1[1]>band1Low,gamma_1[1]<band1High)==1:
+                    if r2_score(I_1_fit[n],Intensity_1rng[...,n])>=0.5:
                         center_1plus=np.append(center_1plus,gamma_1[1]);
                         FWHM_1plus=np.append(FWHM_1plus,2*np.sqrt(gamma_1[2]));
                         Int_1plus=np.append(Int_1plus,gamma_1[0]/gamma_1[2]); 
@@ -750,6 +759,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 axx.legend(fontsize=fs)
             
             #Save Lorentzian Fit for each file
+            os.chdir(folder_selected + '/Results/')
             fig_lor_fit.savefig('Lorentz_fit_'+labels[z]+imgtype)
             
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%
@@ -840,6 +850,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             
     
             Iplus_minus=np.array(Int_1plus)/np.array(Int_1min);
+            Iplus_minus[Iplus_minus>500]=np.nan
             binsInt=np.arange(min(Iplus_minus)-width_int/2, max(Iplus_minus) + width_int/2, width_int)
             ax_peak1_I.hist(Iplus_minus,binsInt,color=clr[round(len(clr)/2)],
                       label=labels[z]+': $I_{'+band1Name+'^{+}}/I_{'+band1Name+'^{-}}$ ='+str(round(np.nanmean(Iplus_minus),2))+'$\pm$'
@@ -1444,7 +1455,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                
                 #Make 2D Map of Intensity Data            
                 h=ax_Map2.pcolormesh(x1,y1,var2D_2_r)
-                clbr=plt.colorbar(h,ax=ax_Map1)
+                clbr=plt.colorbar(h,ax=ax_Map2)
                 clbr.set_label(spec_label1, rotation=270,labelpad=20,fontsize=fs)
                 clbr.ax.tick_params(labelsize=fs) 
                 ax_Map2.set_xlabel(xlab,fontsize=fs)
@@ -1700,13 +1711,13 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         fig_Map_peak3.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map_peak3, ax_Map_peak3, var2D_peak3, line_peak3, spec_label_peak3, unit_peak3,red_dots_dict))
 
         if map1==1:
-            fig_Map1.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map1, ax_Map1, var2D_1, line1, spec_label1, unit1))
+            fig_Map1.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map1, ax_Map1, var2D_1, line1, spec_label1, unit1, red_dots_dict))
         if map2==1:
-            fig_Map2.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map2, ax_Map2, var2D_2, line2, spec_label2, unit2)) 
+            fig_Map2.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map2, ax_Map2, var2D_2, line2, spec_label2, unit2, red_dots_dict))
         if map3==1:
-            fig_Map3.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map3, ax_Map3, var2D_3, line3, spec_label3, unit3)) 
+            fig_Map3.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map3, ax_Map3, var2D_3, line3, spec_label3, unit3, red_dots_dict))
         if map4==1:
-            fig_Map4.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map4, ax_Map4, var2D_4, line4, spec_label4, unit4)) 
+            fig_Map4.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map4, ax_Map4, var2D_4, line4, spec_label4, unit4, red_dots_dict)) 
 
 
 
@@ -1716,9 +1727,9 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
 #               ['6,5-SWCNT.txt', 'CuMINT.txt'],
 #               '\t')
 
-# process_data(r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps',
-#               [r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps\mapExample.txt'],
-#               ['mapExample.txt'],
-#               ['mapExample'],
-#               '\t')
+process_data(r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps',
+              [r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps\mapExample.txt'],
+              ['mapExample.txt'],
+              ['mapExample'],
+              '\t')
 
