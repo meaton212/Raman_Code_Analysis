@@ -830,7 +830,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         if nt == 0:
             
     
-            binsShift=np.arange(min(center_1plus)-width, max(center_1plus) + width, width)
+            binsShift=np.arange(np.nanmin(center_1plus)-width, np.nanmax(center_1plus) + width, width)
             
             ax_peak1.hist(center_1plus,binsShift,color=clr[round(len(clr)/2)],
                           label=labels[z]+': $'+band1Name+'$ band='+str(round(peak1plus_av,2))+'$\pm$'
@@ -840,7 +840,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             
             ax_peak1.set_title('Raman shift $'+band1Name+'$ band',fontsize=fs+2);
         else:
-            binsShift=np.arange(min(center_1min) - width/2, max(center_1plus) + width/2, width)
+            binsShift=np.arange(np.nanmin(center_1min) - width/2, np.nanmax(center_1plus) + width/2, width)
             ax_peak1.hist(center_1plus,binsShift, color=clr[round(len(clr)/3)],
                       label=labels[z]+': $'+band1Name+'^{+}$ mode='+str(round(peak1plus_av,2))+'$\pm$'
                       +str(round(peak1plus_std,2))+' $cm^{-1}$',
@@ -855,7 +855,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
     
             Iplus_minus=np.array(Int_1plus)/np.array(Int_1min);
             Iplus_minus[Iplus_minus>maxI21]=np.nan
-            binsInt=np.arange(min(Iplus_minus)-width_int/2, max(Iplus_minus) + width_int/2, width_int)
+            binsInt=np.arange(np.nanmin(Iplus_minus)-width_int/2, np.nanmax(Iplus_minus) + width_int/2, width_int)
             ax_peak1_I.hist(Iplus_minus,binsInt,color=clr[round(len(clr)/2)],
                       label=labels[z]+': $I_{'+band1Name+'^{+}}/I_{'+band1Name+'^{-}}$ ='+str(round(np.nanmean(Iplus_minus),2))+'$\pm$'
                       +str(round(np.nanstd(Iplus_minus),2)),
@@ -876,7 +876,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
        # Histogram of FWHM
         if lorentz==1:
             if nt == 0:
-                binsFWHM=np.arange(min(FWHM_1plus) - width_fw/2, max(FWHM_1plus) + width_fw/2, width_fw)
+                binsFWHM=np.arange(np.nanmin(FWHM_1plus) - width_fw/2, np.nanmax(FWHM_1plus) + width_fw/2, width_fw)
                 ax_peak1_FWHMplus.hist(FWHM_1plus, binsFWHM, color=clr[round(len(clr)/2)],
                                 label=labels[z]+': FWHM $'+band1Name+'$ ='+
                                 str(round(FWHM_1plus_av,2))+'$\pm$'+str(round(FWHM_1plus_std,2)), 
@@ -884,13 +884,13 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 ax_peak1_FWHMplus.set_title('FWHM $'+band1Name+'$ band',fontsize=fs+2);
 
             else:
-                binsFWHM=np.arange(min(FWHM_1plus) - width_fw/2, max(FWHM_1plus) + width_fw/2, width_fw)
+                binsFWHM=np.arange(np.nanmin(FWHM_1plus) - width_fw/2, np.nanmax(FWHM_1plus) + width_fw/2, width_fw)
                 ax_peak1_FWHMplus.hist(FWHM_1plus, binsFWHM, color=clr[round(len(clr)/2)],
                                 label=labels[z]+': FWHM $'+band1Name+'^{+}$ ='+
                                 str(round(FWHM_1plus_av,2))+'$\pm$'+str(round(FWHM_1plus_std,2)), 
                                 alpha=0.5,ec='k',align='left',density=dens)
                 
-                binsFWHM=np.arange(min(FWHM_1min) - width/2, max(FWHM_1min) + width/2, width)
+                binsFWHM=np.arange(np.nanmin(FWHM_1min) - width/2, np.nanmax(FWHM_1min) + width/2, width)
                 ax_peak1_FWHMmin.hist(FWHM_1min, binsFWHM, color=clr[round(len(clr)/2)],
                                 label=labels[z]+': FWHM $'+band1Name+'^{-}$ ='+
                                 str(round(FWHM_1min_av,2))+'$\pm$'+str(round(FWHM_1min_std,2)), 
@@ -923,7 +923,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         
     
     
-        binsShift=np.arange(min(center_2)-width/2, max(center_2) + width/2, width)
+        binsShift=np.arange(np.nanmin(center_2)-width/2, np.nanmax(center_2) + width/2, width)
     
         ax_peak2.hist(center_2,binsShift,color=clr[round(len(clr)/2)],
                   label=labels[z]+': $'+band2Name+'$ band='+str(round(peak2_av,2))+'$\pm$'
@@ -942,7 +942,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         
         # Histogram of FWHM
         if lorentz==1:
-            binsFWHM=np.arange(min(FWHM_2) - width/2, max(FWHM_2) + width/2, width)
+            binsFWHM=np.arange(np.nanmin(FWHM_2) - width/2, np.nanmax(FWHM_2) + width/2, width)
             ax_peak2_FWHM.hist(FWHM_2, binsFWHM, color=clr[round(len(clr)/2)],
                             label=labels[z]+': FWHM $'+band2Name+'$ ='+
                             str(round(FWHM_2_av,2))+'$\pm$'+str(round(FWHM_2_std,2)), 
@@ -967,7 +967,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
     
     
     
-        binsShift=np.arange(min(center_3)-width/2, max(center_3) + width/2, width)
+        binsShift=np.arange(np.nanmin(center_3)-width/2, np.nanmax(center_3) + width/2, width)
         
         ax_peak3.hist(center_3,binsShift,color=clr[round(len(clr)/2)],
                    label=labels[z]+': $2D$ band='+str(round(peak3_av,2))+'$\pm$'
@@ -985,7 +985,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         
         # Histogram of FWHM
         if lorentz==1:
-            binsFWHM=np.arange(min(FWHM_3) - width/2, max(FWHM_3) + width/2, width)
+            binsFWHM=np.arange(np.nanmin(FWHM_3) - width/2, np.nanmax(FWHM_3) + width/2, width)
             ax_peak3_FWHM.hist(FWHM_3, binsFWHM, color=clr[round(len(clr)/2)],
                             label=labels[z]+': FWHM $'+band3Name+'$ ='+
                             str(round(FWHM_3_av,2))+'$\pm$'+str(round(FWHM_3_std,2)), 
@@ -1011,7 +1011,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
          #   npeaks=max([len(n) for n in PeaksLoc1])
             PeaksLoc  = np.array(flatten(PeaksLoc1))
     
-            binsShift=np.arange(min(PeaksLoc)-width/2, max(PeaksLoc) + width/2, width)
+            binsShift=np.arange(np.nanmin(PeaksLoc)-width/2, np.nanmax(PeaksLoc) + width/2, width)
       
             [histRBM, edgesRBM]=np.histogram(PeaksLoc,binsShift)
             peaksRBM, _ = find_peaks(np.concatenate(([min(histRBM)],histRBM,[min(histRBM)])), distance=10)
