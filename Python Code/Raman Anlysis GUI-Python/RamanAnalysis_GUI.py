@@ -98,8 +98,7 @@ root.withdraw()
 
 messagebox.showinfo(title="Greetings", message='In the next window, select the path where the files to analyze are located')
 
-folder_selected = filedialog.askdirectory(parent=root, initialdir=os.getcwd(), title="Please select folder with files to analyze:")
-#folder_selected  = filedialog.askdirectory(initialdir='C:/', title="Please select folder with files to analyze:", parent=root)
+folder_selected  = filedialog.askdirectory(initialdir='C:/', title="Please select folder with files to analyze:", parent=root)
 
 os.chdir(folder_selected)
 

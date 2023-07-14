@@ -15,7 +15,7 @@ from tkinter import ttk
 def PlotsInputs(band1Name, band2Name, band3Name):
     width = 3
     width_fw = 5
-    width_int = 0.01
+    width_int = 0.1
     raw = False
     norm = False
     rng = False
@@ -34,9 +34,10 @@ def PlotsInputs(band1Name, band2Name, band3Name):
     nameFigs = "TestSample"
     imgtype='.svg'
     fs=16
+    maxI21=100
 
     def finish_button():
-        nonlocal width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs
+        nonlocal width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs,maxI21
         width = float(w3.get())
         width_fw = float(w5.get())
         width_int = float(w7.get())
@@ -58,6 +59,7 @@ def PlotsInputs(band1Name, band2Name, band3Name):
         imgtype=imgtype_var.get()
         dens=w8_var.get()
         fs=int(ff3.get())
+        maxI21=float(ff5.get())
         fig.destroy()
 
     fig = tk.Tk()
@@ -68,29 +70,36 @@ def PlotsInputs(band1Name, band2Name, band3Name):
     p1.place(x=15, y=10)
 
     p1a = tk.Label(fig, text="Figures plotted by default:", justify="left", anchor="w")
-    p1a.place(x=30, y=70)
+    p1a.place(x=30, y=40)
 
     p1b = tk.Label(fig, text="- Histograms of all spectral features", justify="left", anchor="w")
-    p1b.place(x=200, y=110)
+    p1b.place(x=200, y=80)
 
     p1c = tk.Label(fig, text=f"- Maps (if selected) of position and I({band2Name})/I({band1Name})", justify="left", anchor="w")
-    p1c.place(x=200, y=150)
+    p1c.place(x=200, y=120)
 
     p1d = tk.Label(fig, text="Select the additional graphs required:", justify="left", anchor="w")
-    p1d.place(x=30, y=200)
+    p1d.place(x=30, y=225)
     
     
-    ff1 = tk.LabelFrame(fig, width=200, height=75, text="Plot settings")
-    ff1.place(x=450, y=185)
+    ff1 = tk.LabelFrame(fig, width=200, height=110, text="Plot settings")
+    ff1.place(x=450, y=160)
 
     ff2 = tk.Label(ff1, text="font size:")
-    ff2.place(x=30, y=5)
+    ff2.place(x=10, y=5)
 
     ff3 = tk.Entry(ff1, width=5)
     ff3.place(x=125, y=5)
     ff3.insert(tk.END, str('16'))
+    
+    ff4 = tk.Label(ff1, text="Max I("+band2Name+")/I("+band1Name+"):")
+    ff4.place(x=10, y=45)
 
-    w1 = tk.LabelFrame(fig, width=250, height=210, text="Width of histograms")
+    ff5 = tk.Entry(ff1, width=5)
+    ff5.place(x=125, y=45)
+    ff5.insert(tk.END, str(maxI21))
+
+    w1 = tk.LabelFrame(fig, width=250, height=220, text="Width of histograms")
     w1.place(x=670, y=50)
 
     w2 = tk.Label(w1, text="Raman shift")
@@ -160,7 +169,7 @@ def PlotsInputs(band1Name, band2Name, band3Name):
     q5 = tk.Checkbutton(q, text="Position vs FWHM (all peaks)", variable=q5_var)
     q5.place(x=9, y=128)
 
-    r = tk.LabelFrame(fig, width=200, height=200, text="Figures: Additional Maps")
+    r = tk.LabelFrame(fig, width=210, height=200, text="Figures: Additional Maps")
     r.place(x=720, y=280)
 
 
@@ -206,6 +215,6 @@ def PlotsInputs(band1Name, band2Name, band3Name):
 
     fig.mainloop()
 
-    return width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs
+    return width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs, maxI21
 
 

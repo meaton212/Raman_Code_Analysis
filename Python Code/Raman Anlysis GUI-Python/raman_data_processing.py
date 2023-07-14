@@ -209,7 +209,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         nt=0 # You can only have the split peaks option if a lorentzian fit is selected
 
     # Ploting options/Output plots:
-    width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs = PlotsInputs(band1Name,band2Name,band3Name)
+    width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs, maxI21 = PlotsInputs(band1Name,band2Name,band3Name)
     
     #Prevent user from inputing 0 for histogram widths
     if width==0:
@@ -472,6 +472,8 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             I21=Int_2/maxInt_1
             I31=Int_3/maxInt_1
 
+            center_1min[I21>maxI21]=np.nan
+
   
             peak1min_av=np.nanmean(center_1min)
             peak1min_std=np.nanstd(center_1min)  
@@ -480,9 +482,11 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             I31=Int_3/Int_1plus
             
 
-        
-        I21[I21>1e5]=np.nan    
-        I31[I31>1e5]=np.nan    
+        center_1plus[I21>maxI21]=np.nan
+        center_2[I21>maxI21]=np.nan
+        center_3[I31>maxI21]=np.nan
+        I21[I21>maxI21]=np.nan    
+        I31[I31>maxI21]=np.nan    
 
         peak1plus_av=np.nanmean(center_1plus)
         peak1plus_std=np.nanstd(center_1plus)              
@@ -850,7 +854,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             
     
             Iplus_minus=np.array(Int_1plus)/np.array(Int_1min);
-            Iplus_minus[Iplus_minus>500]=np.nan
+            Iplus_minus[Iplus_minus>maxI21]=np.nan
             binsInt=np.arange(min(Iplus_minus)-width_int/2, max(Iplus_minus) + width_int/2, width_int)
             ax_peak1_I.hist(Iplus_minus,binsInt,color=clr[round(len(clr)/2)],
                       label=labels[z]+': $I_{'+band1Name+'^{+}}/I_{'+band1Name+'^{-}}$ ='+str(round(np.nanmean(Iplus_minus),2))+'$\pm$'
@@ -1270,7 +1274,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 fig_MapI21.clf()
             except NameError:
                 pass
-                fig_MapI21 = plt.figure('Intensity Ratio '+band2Name+'-'+band1Name+' 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                fig_MapI21 = plt.figure('Intensity Ratio '+band2Name+'-'+band1Name+' Map', figsize=(7*ratio,6), constrained_layout=True)
                 ax_MapI21 = fig_MapI21.add_subplot(111)
                 
             var2D_I21=I21
@@ -1285,7 +1289,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             clbr.ax.tick_params(labelsize=fs) 
             ax_MapI21.set_xlabel(xlab,fontsize=fs)
             ax_MapI21.set_ylabel(ylab,fontsize=fs)
-            ax_MapI21.set_title('2D Map of '+spec_labelI21+' for '+labels[z],fontsize=fs)        
+            ax_MapI21.set_title('Map of '+spec_labelI21+' for '+labels[z],fontsize=fs)        
             ax_MapI21.tick_params(axis="both", labelsize=fs)            
             fig_MapI21.savefig(labels[z]+'_2DMap_I21'+imgtype)
                
@@ -1300,7 +1304,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 fig_Map_peak1.clf()
             except NameError:
                 pass
-                fig_Map_peak1 = plt.figure(band1Name+' shift 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                fig_Map_peak1 = plt.figure(band1Name+' shift Map', figsize=(7*ratio,6), constrained_layout=True)
                 ax_Map_peak1 = fig_Map_peak1.add_subplot(111)
                 
             if nt==1:
@@ -1323,7 +1327,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             clbr.ax.tick_params(labelsize=fs) 
             ax_Map_peak1.set_xlabel(xlab,fontsize=fs)
             ax_Map_peak1.set_ylabel(ylab,fontsize=fs)
-            ax_Map_peak1.set_title('2D Map of '+spec_label_peak1+' for '+labels[z],fontsize=fs)        
+            ax_Map_peak1.set_title('Map of '+spec_label_peak1+' for '+labels[z],fontsize=fs)        
             ax_Map_peak1.tick_params(axis="both", labelsize=fs)            
             fig_Map_peak1.savefig(labels[z]+'_2DMap_'+band1Name+imgtype)
                
@@ -1338,7 +1342,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 fig_Map_peak2.clf()
             except NameError:
                 pass
-                fig_Map_peak2 = plt.figure(band2Name+' shift 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                fig_Map_peak2 = plt.figure(band2Name+' shift Map', figsize=(7*ratio,6), constrained_layout=True)
                 ax_Map_peak2 = fig_Map_peak2.add_subplot(111)
                 
             var2D_peak2=center_2
@@ -1355,7 +1359,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             clbr.ax.tick_params(labelsize=fs) 
             ax_Map_peak2.set_xlabel(xlab,fontsize=fs)
             ax_Map_peak2.set_ylabel(ylab,fontsize=fs)
-            ax_Map_peak2.set_title('2D Map of '+spec_label_peak2+' for '+labels[z],fontsize=fs)        
+            ax_Map_peak2.set_title('Map of '+spec_label_peak2+' for '+labels[z],fontsize=fs)        
             ax_Map_peak2.tick_params(axis="both", labelsize=fs)            
             fig_peak2.savefig(labels[z]+'_2DMap_'+band2Name+imgtype)
                
@@ -1370,7 +1374,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 fig_Map_peak3.clf()
             except NameError:
                 pass
-                fig_Map_peak3 = plt.figure(band3Name+' shift 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                fig_Map_peak3 = plt.figure(band3Name+' shift Map', figsize=(7*ratio,6), constrained_layout=True)
                 ax_Map_peak3 = fig_Map_peak3.add_subplot(111)
                 
             var2D_peak3=center_3
@@ -1387,7 +1391,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             clbr.ax.tick_params(labelsize=fs) 
             ax_Map_peak3.set_xlabel(xlab,fontsize=fs)
             ax_Map_peak3.set_ylabel(ylab,fontsize=fs)
-            ax_Map_peak3.set_title('2D Map of '+spec_label_peak3+' for '+labels[z],fontsize=fs)        
+            ax_Map_peak3.set_title('Map of '+spec_label_peak3+' for '+labels[z],fontsize=fs)        
             ax_Map_peak3.tick_params(axis="both", labelsize=fs)            
             fig_peak3.savefig(labels[z]+'_2DMap_'+band3Name+imgtype)
                
@@ -1401,7 +1405,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     fig_Map1.clf()
                 except NameError:
                     pass
-                    fig_Map1 = plt.figure('FWHM '+band1Name+' band 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                    fig_Map1 = plt.figure('FWHM '+band1Name+' band Map', figsize=(7*ratio,6), constrained_layout=True)
                     ax_Map1 = fig_Map1.add_subplot(111)
                     
                 
@@ -1426,7 +1430,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 clbr.ax.tick_params(labelsize=fs) 
                 ax_Map1.set_xlabel(xlab,fontsize=fs)
                 ax_Map1.set_ylabel(ylab,fontsize=fs)
-                ax_Map1.set_title('2D Map of '+spec_label1+' for '+labels[z],fontsize=fs)        
+                ax_Map1.set_title('Map of '+spec_label1+' for '+labels[z],fontsize=fs)        
                 ax_Map1.tick_params(axis="both", labelsize=fs)            
                 fig_Map1.savefig(labels[z]+'_2DMap_'+band1Name+'_FWHM'+imgtype)
                    
@@ -1441,7 +1445,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     fig_Map2.clf()
                 except NameError:
                     pass
-                    fig_Map2 = plt.figure('FWHM '+band2Name+' band 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                    fig_Map2 = plt.figure('FWHM '+band2Name+' band Map', figsize=(7*ratio,6), constrained_layout=True)
                     ax_Map2 = fig_Map2.add_subplot(111)
                     
                 var2D_2=FWHM_2
@@ -1460,7 +1464,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 clbr.ax.tick_params(labelsize=fs) 
                 ax_Map2.set_xlabel(xlab,fontsize=fs)
                 ax_Map2.set_ylabel(ylab,fontsize=fs)
-                ax_Map2.set_title('2D Map of '+spec_label2+' for '+labels[z],fontsize=fs)        
+                ax_Map2.set_title('Map of '+spec_label2+' for '+labels[z],fontsize=fs)        
                 ax_Map2.tick_params(axis="both", labelsize=fs)            
                 fig_Map2.savefig(labels[z]+'_2DMap_'+band2Name+'_FWHM'+imgtype)
                    
@@ -1475,7 +1479,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     fig_Map3.clf()
                 except NameError:
                     pass
-                    fig_Map3 = plt.figure('FWHM '+band3Name+' band 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                    fig_Map3 = plt.figure('FWHM '+band3Name+' band Map', figsize=(7*ratio,6), constrained_layout=True)
                     ax_Map3 = fig_Map3.add_subplot(111)
                     
                 var2D_3=FWHM_3
@@ -1494,7 +1498,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 clbr.ax.tick_params(labelsize=fs) 
                 ax_Map3.set_xlabel(xlab,fontsize=fs)
                 ax_Map3.set_ylabel(ylab,fontsize=fs)
-                ax_Map3.set_title('2D Map of '+spec_label3+' for '+labels[z],fontsize=fs)        
+                ax_Map3.set_title('Map of '+spec_label3+' for '+labels[z],fontsize=fs)        
                 ax_Map3.tick_params(axis="both", labelsize=fs)            
                 fig_Map3.savefig(labels[z]+'_2DMap_'+band2Name+'_FWHM'+imgtype)
                    
@@ -1508,7 +1512,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     fig_Map4.clf()
                 except NameError:
                     pass
-                    fig_Map4 = plt.figure('Intensity Ratio '+band3Name+'-'+band1Name+' 2D Map', figsize=(7*ratio,6), constrained_layout=True)
+                    fig_Map4 = plt.figure('Intensity Ratio '+band3Name+'-'+band1Name+' Map', figsize=(7*ratio,6), constrained_layout=True)
                     ax_Map4 = fig_Map4.add_subplot(111)
                     
                 var2D_4=I31
@@ -1523,7 +1527,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 clbr.ax.tick_params(labelsize=fs) 
                 ax_Map4.set_xlabel(xlab,fontsize=fs)
                 ax_Map4.set_ylabel(ylab,fontsize=fs)
-                ax_Map4.set_title('2D Map of '+spec_label4+' for '+labels[z],fontsize=fs)        
+                ax_Map4.set_title('Map of '+spec_label4+' for '+labels[z],fontsize=fs)        
                 ax_Map4.tick_params(axis="both", labelsize=fs)            
                 fig_Map4.savefig(labels[z]+'_2DMap_I31'+imgtype)
                    
