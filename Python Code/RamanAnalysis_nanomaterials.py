@@ -106,7 +106,7 @@ band3High=2800; #Upper limit in cm-1
 
 
 #RBM modes
-rbm=0# Set to 1 if RBM analysis desired
+rbm=1# Set to 1 if RBM analysis desired
 RBMregion_Low=200; #Lower limit in cm-1
 RBMregion_High=360; #Upper limit in cm-1
 Prom=[0.01]; #This value sets the max limit at which peaks will be considered. 
@@ -742,9 +742,7 @@ for z in range(0,total):
                     
                 ax_lor_fit[1].set_title('Fitting results D',fontsize=fs)  
                 ax_lor_fit[2].set_title('Fitting results 2D',fontsize=fs)  
-
-
-    
+                
         for axx in ax_lor_fit:
             axx.set_xlabel('Raman shift / $cm^{-1}$',fontsize=fs)
             axx.set_ylabel('Intensity / a.u',fontsize=fs)  
@@ -808,8 +806,9 @@ for z in range(0,total):
 #%% #Correlations
 
     if z==0:
-        fig_Corr,ax_Corr= plt.subplots(1,3, figsize=(15,5), constrained_layout=True)
+        fig_Corr,ax_Corr= plt.subplots(2,2, figsize=(15,15), constrained_layout=True)
         fig_Corr.canvas.manager.set_window_title('Correlations')
+        ax_Corr=ax_Corr.flatten()
 
     if nt==1:# In the case where there are separate G+/G- peaks, use G+
         #Linear fit Intensity Ratio vs G+
@@ -826,6 +825,15 @@ for z in range(0,total):
         #Plot 2D vs G
         ax_Corr[2].plot(center_Gplus,center_2D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_2D_G[0],3)))
         xx2=np.linspace(min(center_Gplus),max(center_Gplus),100)
+        
+        
+        
+        #Linear fit D vs Gplus
+        idx = np.isfinite(center_Gplus) & np.isfinite(center_D)
+        fit_D_G=np.polyfit(np.array(center_Gplus)[idx],np.array(center_D)[idx],1)
+        #Plot 2D vs G
+        ax_Corr[3].plot(center_Gplus,center_D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_D_G[0],3)))
+        xx2=np.linspace(min(center_Gplus),max(center_Gplus),100)
 
     else:
         idx = np.isfinite(I21) & np.isfinite(center_G)
@@ -838,6 +846,14 @@ for z in range(0,total):
         #Plot 2D vs G
         ax_Corr[2].plot(center_G,center_2D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_2D_G[0],3)))
         xx2=np.linspace(min(center_G),max(center_G),100)
+        
+        
+        #Linear fit D vs G
+        idx = np.isfinite(center_G) & np.isfinite(center_D)
+        fit_D_G=np.polyfit(np.array(center_G)[idx],np.array(center_D)[idx],1)
+        #Plot 2D vs G
+        ax_Corr[3].plot(center_G,center_D,marker='o',ls='',color=clr[round(len(clr)/2)],label=name[z]+', slope='+str(round(fit_D_G[0],3)))
+        xx2=np.linspace(min(center_G),max(center_G),100)
 
 
     xx=np.linspace(min(I21),max(I21),100)
@@ -848,14 +864,15 @@ for z in range(0,total):
     ax_Corr[1].plot(xx,fit_I21_D[0]*xx+fit_I21_D[1],lw=2,ls='-',color=clr[round(len(clr)/3)])
 
 
+    ax_Corr[3].plot(xx2,fit_D_G[0]*xx2+fit_D_G[1],lw=2,ls='-',color=clr[round(len(clr)/3)])
 
 
     ax_Corr[2].plot(xx2,fit_2D_G[0]*xx2+fit_2D_G[1],lw=2,ls='-',color=clr[round(len(clr)/3)])
 
         
-    xlab=['$I_{d}/I_{g}$','$I_{d}/I_{g}$','Raman Shift $G$ band /$ cm^{-1}$']
-    ylab=['Raman Shift $G$ band /$ cm^{-1}$','Raman Shift $D$ band /$ cm^{-1}$','Raman Shift $2D$ band /$ cm^{-1}$']
-    titles=['$G$ band Shift vs. $I_{d}/I_{g}$','$D$ band Shift vs. $I_{d}/I_{g}$','$2D$ band Shift vs. $G$ band Shift']
+    xlab=['$I_{d}/I_{g}$','$I_{d}/I_{g}$','Raman Shift $G$ band /$ cm^{-1}$','Raman Shift $G$ band /$ cm^{-1}$']
+    ylab=['Raman Shift $G$ band /$ cm^{-1}$','Raman Shift $D$ band /$ cm^{-1}$','Raman Shift $2D$ band /$ cm^{-1}$','Raman Shift $D$ band /$ cm^{-1}$']
+    titles=['$G$ band Shift vs. $I_{d}/I_{g}$','$D$ band Shift vs. $I_{d}/I_{g}$','$2D$ band Shift vs. $G$ band Shift','$D$ band Shift vs. $G$ band Shift']
     for i,ax in enumerate(ax_Corr):
         ax.legend(fontsize=fs-3)
         ax.tick_params(axis="both", labelsize=fs)
@@ -963,9 +980,9 @@ for z in range(0,total):
         
     data_all['Intensity Ratio']=I21  
     
-   # if rbm==1:
-    #    data_all['Intensity_RBM']=PeaksInt
-     #   data_all['Shift_RBM']=PeaksLoc
+    if rbm==1:
+        data_all['Intensity_RBM']=PeaksInt
+        data_all['Shift_RBM']=PeaksLoc1
         
     data_all_df=pd.DataFrame(data_all)
     data_all_df.index.name='Spectra #'
@@ -983,7 +1000,7 @@ fig_avg.savefig('Avg Spectra'+imgtype)
 if rng==1:
     fig_rng.savefig('SpecRangeIR'+imgtype)
 
-fig_IR.savefig('IntesityRatio'+imgtype)
+fig_IR.savefig('IntensityRatio'+imgtype)
 fig_2D.savefig('2DBand'+imgtype)
 fig_G.savefig('Gband'+imgtype)
 fig_D.savefig('Dband'+imgtype)
@@ -993,7 +1010,7 @@ if correlations==1:
 
 
 if nt==1:
-    fig_G_I.savefig('IntesityRatioG+G-'+imgtype)
+    fig_G_I.savefig('IntensityRatioG+G-'+imgtype)
     
 
 #%% Pick Event for 2D Map
