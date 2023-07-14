@@ -1719,17 +1719,3 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         if map4==1:
             fig_Map4.canvas.mpl_connect('pick_event', lambda event: onpick(event, fig_Map4, ax_Map4, var2D_4, line4, spec_label4, unit4, red_dots_dict)) 
 
-
-
-# process_data('C:/Users/matte/Documents/IMDEA/Manuscripts/Raman Code/Raman_Code_Analysis/Example Data/Example_Data_1',
-#               ['C:/Users/matte/Documents/IMDEA/Manuscripts/Raman Code/Raman_Code_Analysis/Example Data/Example_Data_1/6,5-SWCNT.txt', 'C:/Users/matte/Documents/IMDEA/Manuscripts/Raman Code/Raman_Code_Analysis/Example Data/Example_Data_1/CuMINT.txt'],
-#               ['6,5-SWCNT.txt', 'CuMINT.txt'],
-#               ['6,5-SWCNT.txt', 'CuMINT.txt'],
-#               '\t')
-
-process_data(r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps',
-              [r'C:\Users\matte\Documents\IMDEA\Manuscripts\Raman Code\Raman_Code_Analysis\Example Data\Example_Data_2_2DMaps\mapExample.txt'],
-              ['mapExample.txt'],
-              ['mapExample'],
-              '\t')
-
