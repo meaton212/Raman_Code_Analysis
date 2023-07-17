@@ -63,9 +63,6 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
     # Perform your data processing operations using the passed variables
     total=len(selected_files)
     
-    if not os.path.exists(folder_selected + '/Results'):
-        os.makedirs(folder_selected + '/Results')
-    
     for z in range(0,total):
 
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%%
@@ -211,6 +208,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
     # Ploting options/Output plots:
     width, width_fw, width_int, raw, norm, rng, peaks, correlation1, correlation2, correlation3, correlation4, correlation5, map1, map2, map3, map4, saveFigs, nameFigs, imgtype, dens, fs, maxI21 = PlotsInputs(band1Name,band2Name,band3Name)
     
+    #Create folder, if it doesnt exist for output data
+    if not os.path.exists(folder_selected + '/'+nameFigs+'_Results'):
+        os.makedirs(folder_selected + '/'+nameFigs+'_Results')
+        
     #Prevent user from inputing 0 for histogram widths
     if width==0:
         width=3; 
@@ -638,7 +639,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
         T['Intensity Ratio_3_1']=I31
         T.index.name='Spectra #'
         
-        nameT = folder_selected+'/Results/'+labels[z] + '_results.csv'
+        nameT = folder_selected+'/'+nameFigs+'_Results/'+labels[z] + '_results.csv'
         T.to_csv(nameT)
         
         
@@ -763,7 +764,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 axx.legend(fontsize=fs)
             
             #Save Lorentzian Fit for each file
-            os.chdir(folder_selected + '/Results/')
+            os.chdir(folder_selected + '/'+nameFigs+'_Results/')
             fig_lor_fit.savefig('Lorentz_fit_'+labels[z]+imgtype)
             
 #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%
@@ -1245,7 +1246,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
 #%% #2D Maps: Plot 2D Maps if selected
         if map_==1:
             #Change folder to save 2D maps
-            os.chdir(folder_selected + '/Results/')
+            os.chdir(folder_selected + '/'+nameFigs+'_Results/')
 
             if use_leng!=1:
                 ratio=cols/rows
@@ -1541,7 +1542,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             
  #%%% Save Figures in Scaleable Vector Format
     if saveFigs==1:
-        os.chdir(folder_selected + '/Results/')
+        os.chdir(folder_selected + '/'+nameFigs+'_Results/')
         fig_avg.savefig(nameFigs+'_AverageSpectra'+imgtype)
         fig_IR.savefig(nameFigs+'_I' + band2Name + band1Name + imgtype)
         fig_IR2.savefig(nameFigs+'_I' + band3Name + band1Name + imgtype)
