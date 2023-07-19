@@ -1485,6 +1485,8 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
                                                  'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std',
                                                  'Intensity_RBM_avg','Intensity_RBM_std',
                                                  'Shift_RBM_avg','Shift_RBM_std'])
                 avg_df.loc[z]={
@@ -1501,6 +1503,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
                     'Shift_' + band3Name+'_avg': peak3_av,
                     'Shift_' + band3Name+'_std': peak3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error,                    
                     'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
                     'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
                     'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
@@ -1537,6 +1543,8 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
                                                  'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
                                                  'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std',
                                                  'Intensity_RBM_avg','Intensity_RBM_std',
                                                  'Shift_RBM_avg','Shift_RBM_std'])
                 avg_df.loc[z]={
@@ -1565,6 +1573,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Shift_' + band3Name+'_std': peak3_std,
                     'FWHM_' + band3Name+'_avg': FWHM_3_av,
                     'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error, 
                     'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
                     'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
                     'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
@@ -1594,7 +1606,9 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
                                                  'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
-                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',                                                 
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std',
                                                  'Intensity_RBM_avg','Intensity_RBM_std',
                                                  'Shift_RBM_avg','Shift_RBM_std'])
                 avg_df.loc[z]={
@@ -1617,6 +1631,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Shift_' + band3Name+'_std': peak3_std,
                     'FWHM_' + band3Name+'_avg': FWHM_3_av,
                     'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error, 
                     'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
                     'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
                     'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
@@ -1641,7 +1659,9 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
                                                  'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
-                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std'])
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std'])
                 avg_df.loc[z]={
                     'file':file_name[z],
                     'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
@@ -1655,7 +1675,11 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
                     'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
                     'Shift_' + band3Name+'_avg': peak3_av,
-                    'Shift_' + band3Name+'_std': peak3_std
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error 
                     }
             elif lorentz == 1 and nt == 1:
                 T = pd.DataFrame({
@@ -1685,7 +1709,9 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
                                                  'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
-                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std'])
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std'])
                 avg_df.loc[z]={
                     'file':file_name[z],
                     'Intensity_' + band1Name+'+_avg': np.nanmean(Int_1plus),
@@ -1712,6 +1738,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Shift_' + band3Name+'_std': peak3_std,
                     'FWHM_' + band3Name+'_avg': FWHM_3_av,
                     'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error 
                     }
                 
             elif lorentz == 1 and nt == 0:
@@ -1735,7 +1765,9 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                                                  'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
                                                  'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
                                                  'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
-                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std'])
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'IntensityRatio_' + band2Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band2Name+'/'+band1Name+'_std',
+                                                 'IntensityRatio_' + band3Name+'/'+band1Name+'_avg', 'IntensityRatio_' + band3Name+'/'+band1Name+'_std'])
                 avg_df.loc[z]={
                     'file':file_name[z],
                     'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
@@ -1756,6 +1788,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     'Shift_' + band3Name+'_std': peak3_std,
                     'FWHM_' + band3Name+'_avg': FWHM_3_av,
                     'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_avg':I21_av,
+                    'IntensityRatio_' + band2Name+'/'+band1Name+'_std':I21_error,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_avg':I31_av,
+                    'IntensityRatio_' + band3Name+'/'+band1Name+'_std':I31_error 
                     }
         
         T['Intensity Ratio_2_1']=I21  
