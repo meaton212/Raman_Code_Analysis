@@ -21,8 +21,7 @@ import raman_data_processing
 # consecutive columns (as many spectra available, and not neccesarily the same number of spectra per file).
 
 # The location and names of the files should be indicated in path and file_name
-# variables, respectively. The total number of files should be included in
-#  total.
+# variables, respectively. 
 
 def open_files():
     global selected_files
