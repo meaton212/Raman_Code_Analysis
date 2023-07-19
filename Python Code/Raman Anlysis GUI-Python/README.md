@@ -85,8 +85,37 @@ If method 2 (lorentzian fit) is selected in the analysis method step, a window w
 
 ### 6. Plotting options: 
 Last, the user can decide whether or not to produce and save specific plots in addition to the default ones. Click the desired boxes. 
-Moreover, select the width of the bins for the histograms showing the calculated statistics of the samples. Different widths can be chosen for the histograms of Raman shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>) and intensity ratio.
+Moreover, select the width of the bins for the histograms showing the calculated statistics of the samples. Different widths can be chosen for the histograms of Raman shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>) and intensity ratio. And the user can select whether or not they want the histograms normalized, and the fontsize for the figures. Additionally, bad spectra can be filtered out of the results by picking a maximum intensity ratio (I<sub>2</sub>/I<sub>1</sub>).  Spectra whose I<sub>2</sub>/I<sub>1</sub> is larger than the input max value will be ignored in the histrograms, 2D maps, and average value calculations. 
 Finally, click the corresponding box for saving the generated figures (in selected image format) in the current datafolder. Type the basename for the saved figures.
+
+## OUTPUT
+Note: In the case of split of the peak 1 (nt=1), the code will take the more intense band (between peak 1<sup>+</sup> and 1<sup>-</sup>) for the intensity ratio calculations I<sub>2</sub>/I<sub>1</sub> and I<sub>3</sub>/I<sub>1</sub> as well as for the correlations position1 vs position 3.
+
+All output files are saved in a new folder labeled basename_Results (based on the input "basename" in the plotting options window.
+
+### Output Text Files: spectral features results
+After analyzing all the data, the code will output a .csv file for each file analyzed. The resulting file will contain the spectral features results for each spectrum analyzed in the file. The file is saved as “Name of the sample_results.txt”
+The columns are labelled and contain, depending on the analysis performed, intensity, shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>, only if lorentz=1) of peaks 1 (peak 1<sup>-</sup> and peak 1<sup>+</sup> if nt=1), 2 and 3. If method 2 (lorentz fitting) is chosen the table will also contain the value of R<sup>2</sup> of the fitting for each peak and spectra. The RBM modes results are included in the last columns, with intensity and shift for each RBM mode found. Note that different spectra within a file might have different number of RBM (depending on the value of prom defined). The code saves as many columns as the maximum number of RBMs found in the spèctra. In the case that one specfic spectrum has less RBMs, then the value will be blanck in the corresponding column.
+
+
+### Figures
+Several figures will be produced, with appropriate titles, labels and legends. Successive files will be plotted in different colors within the same graph. <b>Figures will not be automatically saved unless specified in the plotting options panel.</b>
+
+#### Spectra: 
+The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved as the following:
+* Raw data (if raw = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file.
+* Normalized spectra (if norm = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. 
+* Average spectra of each file. A single curve for each file on a single plot. This is always plotted.
+* Only if range=1.The spectral regions chosen for the intensity calculation of the 3 peaks (method 1) or for the peak fitting procedure (method 2). Each spectra in a file is plot on a single subplot, with a subplot for each file.
+* The Lorentian fit curves overlayed over normalized spectra for the 3 peaks (if lorentz = 1). Each peak is plotted in different subfigures. There is a separate graphic for each file. 
+* The RBM region with the identified peaks for each spectra marked (if rbm = 1 and peaks = 1). Each sample is plotted in different subfigures. 
+
+
+
+
+
+
+
 
 
 
