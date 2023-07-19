@@ -21,7 +21,7 @@ def analysisInputs():
     peak1Max=1700
     peak2Min=1250
     peak2Max=1400
-    peak3Min=2600
+    peak3Min=2400
     peak3Max=2800
 
     ###############################

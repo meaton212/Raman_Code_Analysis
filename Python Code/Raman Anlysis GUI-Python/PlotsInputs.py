@@ -15,7 +15,7 @@ from tkinter import ttk
 def PlotsInputs(band1Name, band2Name, band3Name):
     width = 3
     width_fw = 5
-    width_int = 0.1
+    width_int = 0.01
     raw = False
     norm = False
     rng = False

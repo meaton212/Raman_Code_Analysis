@@ -474,6 +474,8 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             I31=Int_3/maxInt_1
 
             center_1min[I21>maxI21]=np.nan
+            Int_1min[I21>maxI21]=np.nan
+
 
   
             peak1min_av=np.nanmean(center_1min)
@@ -482,7 +484,10 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             I21=Int_2/Int_1plus;
             I31=Int_3/Int_1plus
             
-
+        Int_1plus[I21>maxI21]=np.nan
+        Int_2[I21>maxI21]=np.nan
+        Int_3[I21>maxI21]=np.nan
+       
         center_1plus[I21>maxI21]=np.nan
         center_2[I21>maxI21]=np.nan
         center_3[I31>maxI21]=np.nan
@@ -549,99 +554,7 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                     ax_peaks[z].set_xlim((Shift[indRBMLow],Shift[indRBMHigh]))
                     
                     
-        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        #%%%%%% Output data %%%%%%%%%%%%%%%
-        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        # Save data in txt file                             
-        if rbm == 1:
-            if lorentz == 0:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name: Int_1plus,
-                    'Shift_' + band1Name: center_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3,
-                    'Intensity_RBM': PeaksInt,
-                    'Shift_RBM': PeaksLoc1
-                })
-                
-            elif lorentz == 1 and nt == 1:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name + '-': Int_1min,
-                    'Shift_' + band1Name + '-': center_1min,
-                    'FWHM_' + band1Name + '-': FWHM_1min,
-                    'Intensity_' + band1Name + '+': Int_1plus,
-                    'Shift_' + band1Name + '+': center_1plus,
-                    'FWHM_' + band1Name + '+': FWHM_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'FWHM_' + band2Name: FWHM_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3,
-                    'FWHM_' + band3Name: FWHM_3,
-                    'Intensity_RBM': PeaksInt,
-                    'Shift_RBM': PeaksLoc1
-                })
-            elif lorentz == 1 and nt == 0:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name: Int_1plus,
-                    'Shift_' + band1Name: center_1plus,
-                    'FWHM_' + band1Name: FWHM_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'FWHM_' + band2Name: FWHM_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3,
-                    'FWHM_' + band3Name: FWHM_3,
-                    'Intensity_RBM': PeaksInt,
-                    'Shift_RBM': PeaksLoc1
-                })
-        else:
-            if lorentz == 0:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name: Int_1plus,
-                    'Shift_' + band1Name: center_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3
-                })
-            elif lorentz == 1 and nt == 1:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name + '-': Int_1min,
-                    'Shift_' + band1Name + '-': center_1min,
-                    'FWHM_' + band1Name + '-': FWHM_1min,
-                    'Intensity_' + band1Name + '+': Int_1plus,
-                    'Shift_' + band1Name + '+': center_1plus,
-                    'FWHM_' + band1Name + '+': FWHM_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'FWHM_' + band2Name: FWHM_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3,
-                    'FWHM_' + band3Name: FWHM_3
-                })
-            elif lorentz == 1 and nt == 0:
-                T = pd.DataFrame({
-                    'Intensity_' + band1Name: Int_1plus,
-                    'Shift_' + band1Name: center_1plus,
-                    'FWHM_' + band1Name: FWHM_1plus,
-                    'Intensity_' + band2Name: Int_2,
-                    'Shift_' + band2Name: center_2,
-                    'FWHM_' + band2Name: FWHM_2,
-                    'Intensity_' + band3Name: Int_3,
-                    'Shift_' + band3Name: center_3,
-                    'FWHM_' + band3Name: FWHM_3
-                })
-        
-        T['Intensity Ratio_2_1']=I21  
-        T['Intensity Ratio_3_1']=I31
-        T.index.name='Spectra #'
-        
-        nameT = folder_selected+'/'+nameFigs+'_Results/'+labels[z] + '_results.csv'
-        T.to_csv(nameT)
-        
+
         
         
     #%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%#%%
@@ -1008,10 +921,13 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 fig_RBM.canvas.manager.set_window_title('Raman shift RBM modes')
                 meanRBM=dict.fromkeys(labels)
                 stdRBM=dict.fromkeys(labels)    
+                meanRBM_Int=dict.fromkeys(labels)
+                stdRBM_Int=dict.fromkeys(labels)  
             
          #   npeaks=max([len(n) for n in PeaksLoc1])
             PeaksLoc  = np.array(flatten(PeaksLoc1))
-    
+            PeaksInt2= np.array(flatten(PeaksInt))
+            
             binsShift=np.arange(np.nanmin(PeaksLoc)-width/2, np.nanmax(PeaksLoc) + width/2, width)
       
             [histRBM, edgesRBM]=np.histogram(PeaksLoc,binsShift)
@@ -1020,22 +936,29 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
             f_peaksRBM=edgesRBM[peaksRBM]
             
             groups=dict.fromkeys(f_peaksRBM)
+            groups_Int=dict.fromkeys(f_peaksRBM)
             meanRBM[labels[z]]=dict.fromkeys(f_peaksRBM)
             stdRBM[labels[z]]=dict.fromkeys(f_peaksRBM)
+            meanRBM_Int[labels[z]]=dict.fromkeys(f_peaksRBM)
+            stdRBM_Int[labels[z]]=dict.fromkeys(f_peaksRBM)
     
             for n in groups:
                 groups[n]=[]
-            for p in PeaksLoc:
+                groups_Int[n]=[]
+            for jj, p in enumerate(PeaksLoc):
                 try:
                     diff_p=abs(p-f_peaksRBM)
                     ni=np.where(diff_p==min(diff_p))[0][0]
                     groups[f_peaksRBM[ni]].append(p)
+                    groups_Int[f_peaksRBM[ni]].append(PeaksInt2[jj])
                 except ValueError:
                     continue
             
             for n in groups:
                 meanRBM[labels[z]][n]=np.mean(groups[n])
                 stdRBM[labels[z]][n]=np.std(groups[n])
+                meanRBM_Int[labels[z]][n]=np.mean(groups_Int[n])
+                stdRBM_Int[labels[z]][n]=np.std(groups_Int[n])
             
             lb=[str(round(meanRBM[labels[z]][n],2))+ ' $\pm$ ' +str(round(stdRBM[labels[z]][n],2)) for n in stdRBM[labels[z]]]
                 
@@ -1538,7 +1461,314 @@ def process_data(folder_selected, selected_files, file_name, labels, delim):
                 line4.set_visible(False) 
                 
             
-            
+        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        #%%%%%% Output data %%%%%%%%%%%%%%%
+        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        # Save data in txt file                             
+        if rbm == 1:
+            if lorentz == 0:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name: Int_1plus,
+                    'Shift_' + band1Name: center_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3,
+                    'Intensity_RBM': PeaksInt,
+                    'Shift_RBM': PeaksLoc1
+                })
+                
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'_avg', 'Intensity_' + band1Name+'_std',
+                                                 'Shift_' + band1Name+'_avg', 'Shift_' + band1Name+'_std',                                       
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'Intensity_RBM_avg','Intensity_RBM_std',
+                                                 'Shift_RBM_avg','Shift_RBM_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'_avg': peak1plus_av,
+                    'Shift_' + band1Name+'_std': peak1plus_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
+                    'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
+                    'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
+                    'Shift_RBM_std': [stdRBM[labels[z]][n] for n in stdRBM[labels[z]]]
+                    }
+            elif lorentz == 1 and nt == 1:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name + '-': Int_1min,
+                    'Shift_' + band1Name + '-': center_1min,
+                    'FWHM_' + band1Name + '-': FWHM_1min,
+                    'Intensity_' + band1Name + '+': Int_1plus,
+                    'Shift_' + band1Name + '+': center_1plus,
+                    'FWHM_' + band1Name + '+': FWHM_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'FWHM_' + band2Name: FWHM_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3,
+                    'FWHM_' + band3Name: FWHM_3,
+                    'Intensity_RBM': PeaksInt,
+                    'Shift_RBM': PeaksLoc1
+                })
+                
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'+_avg', 'Intensity_' + band1Name+'+_std',
+                                                 'Shift_' + band1Name+'+_avg', 'Shift_' + band1Name+'+_std',
+                                                 'FWHM_' + band1Name+'+_avg', 'FWHM_' + band1Name+'+_std',
+                                                 'Intensity_' + band1Name+'-_avg', 'Intensity_' + band1Name+'-_std',
+                                                 'Shift_' + band1Name+'-_avg', 'Shift_' + band1Name+'-_std',
+                                                 'FWHM_' + band1Name+'-_avg', 'FWHM_' + band1Name+'-_std'
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'Intensity_RBM_avg','Intensity_RBM_std',
+                                                 'Shift_RBM_avg','Shift_RBM_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'+_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'+_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'+_avg': peak1plus_av,
+                    'Shift_' + band1Name+'+_std': peak1plus_std,
+                    'FWHM_' + band1Name+'+_avg': FWHM_1plus_av,
+                    'FWHM_' + band1Name+'+_std': FWHM_1plus_std,
+                    'Intensity_' + band1Name+'-_avg': np.nanmean(Int_1min),
+                    'Intensity_' + band1Name+'-_std':np.nanstd(Int_1min),
+                    'Shift_' + band1Name+'-_avg': peak1min_av,
+                    'Shift_' + band1Name+'-_std': peak1min_std,
+                    'FWHM_' + band1Name+'-_avg': FWHM_1min_av,
+                    'FWHM_' + band1Name+'-_std': FWHM_1min_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'FWHM_' + band2Name+'_avg': FWHM_2_av,
+                    'FWHM_' + band2Name+'_std': FWHM_2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'FWHM_' + band3Name+'_avg': FWHM_3_av,
+                    'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
+                    'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
+                    'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
+                    'Shift_RBM_std': [stdRBM[labels[z]][n] for n in stdRBM[labels[z]]]
+                    }
+            elif lorentz == 1 and nt == 0:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name: Int_1plus,
+                    'Shift_' + band1Name: center_1plus,
+                    'FWHM_' + band1Name: FWHM_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'FWHM_' + band2Name: FWHM_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3,
+                    'FWHM_' + band3Name: FWHM_3,
+                    'Intensity_RBM': PeaksInt,
+                    'Shift_RBM': PeaksLoc1
+                })
+                
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'_avg', 'Intensity_' + band1Name+'_std',
+                                                 'Shift_' + band1Name+'_avg', 'Shift_' + band1Name+'_std',
+                                                 'FWHM_' + band1Name+'_avg', 'FWHM_' + band1Name+'_std',
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std',
+                                                 'Intensity_RBM_avg','Intensity_RBM_std',
+                                                 'Shift_RBM_avg','Shift_RBM_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'_avg': peak1plus_av,
+                    'Shift_' + band1Name+'_std': peak1plus_std,
+                    'FWHM_' + band1Name+'_avg': FWHM_1plus_av,
+                    'FWHM_' + band1Name+'_std': FWHM_1plus_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'FWHM_' + band2Name+'_avg': FWHM_2_av,
+                    'FWHM_' + band2Name+'_std': FWHM_2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'FWHM_' + band3Name+'_avg': FWHM_3_av,
+                    'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    'Intensity_RBM_avg': [meanRBM_Int[labels[z]][n] for n in meanRBM_Int[labels[z]]],
+                    'Intensity_RBM_std': [stdRBM_Int[labels[z]][n] for n in stdRBM_Int[labels[z]]],
+                    'Shift_RBM_avg': [meanRBM[labels[z]][n] for n in meanRBM[labels[z]]],
+                    'Shift_RBM_std': [stdRBM[labels[z]][n] for n in stdRBM[labels[z]]]
+                    }
+                
+                
+        else:
+            if lorentz == 0:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name: Int_1plus,
+                    'Shift_' + band1Name: center_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3
+                })
+                
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'_avg', 'Intensity_' + band1Name+'_std',
+                                                 'Shift_' + band1Name+'_avg', 'Shift_' + band1Name+'_std',                                       
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'_avg': peak1plus_av,
+                    'Shift_' + band1Name+'_std': peak1plus_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std
+                    }
+            elif lorentz == 1 and nt == 1:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name + '-': Int_1min,
+                    'Shift_' + band1Name + '-': center_1min,
+                    'FWHM_' + band1Name + '-': FWHM_1min,
+                    'Intensity_' + band1Name + '+': Int_1plus,
+                    'Shift_' + band1Name + '+': center_1plus,
+                    'FWHM_' + band1Name + '+': FWHM_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'FWHM_' + band2Name: FWHM_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3,
+                    'FWHM_' + band3Name: FWHM_3
+                })
+                
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'+_avg', 'Intensity_' + band1Name+'+_std',
+                                                 'Shift_' + band1Name+'+_avg', 'Shift_' + band1Name+'+_std',
+                                                 'FWHM_' + band1Name+'+_avg', 'FWHM_' + band1Name+'+_std',
+                                                 'Intensity_' + band1Name+'-_avg', 'Intensity_' + band1Name+'-_std',
+                                                 'Shift_' + band1Name+'-_avg', 'Shift_' + band1Name+'-_std',
+                                                 'FWHM_' + band1Name+'-_avg', 'FWHM_' + band1Name+'-_std'
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'+_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'+_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'+_avg': peak1plus_av,
+                    'Shift_' + band1Name+'+_std': peak1plus_std,
+                    'FWHM_' + band1Name+'+_avg': FWHM_1plus_av,
+                    'FWHM_' + band1Name+'+_std': FWHM_1plus_std,
+                    'Intensity_' + band1Name+'-_avg': np.nanmean(Int_1min),
+                    'Intensity_' + band1Name+'-_std':np.nanstd(Int_1min),
+                    'Shift_' + band1Name+'-_avg': peak1min_av,
+                    'Shift_' + band1Name+'-_std': peak1min_std,
+                    'FWHM_' + band1Name+'-_avg': FWHM_1min_av,
+                    'FWHM_' + band1Name+'-_std': FWHM_1min_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'FWHM_' + band2Name+'_avg': FWHM_2_av,
+                    'FWHM_' + band2Name+'_std': FWHM_2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'FWHM_' + band3Name+'_avg': FWHM_3_av,
+                    'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    }
+                
+            elif lorentz == 1 and nt == 0:
+                T = pd.DataFrame({
+                    'Intensity_' + band1Name: Int_1plus,
+                    'Shift_' + band1Name: center_1plus,
+                    'FWHM_' + band1Name: FWHM_1plus,
+                    'Intensity_' + band2Name: Int_2,
+                    'Shift_' + band2Name: center_2,
+                    'FWHM_' + band2Name: FWHM_2,
+                    'Intensity_' + band3Name: Int_3,
+                    'Shift_' + band3Name: center_3,
+                    'FWHM_' + band3Name: FWHM_3
+                })
+                if z==0:
+                    avg_df=pd.DataFrame(columns=['file', 'Intensity_' + band1Name+'_avg', 'Intensity_' + band1Name+'_std',
+                                                 'Shift_' + band1Name+'_avg', 'Shift_' + band1Name+'_std',
+                                                 'FWHM_' + band1Name+'_avg', 'FWHM_' + band1Name+'_std',
+                                                 'Intensity_' + band2Name+'_avg', 'Intensity_' + band2Name+'_std',
+                                                 'Shift_' + band2Name+'_avg', 'Shift_' + band2Name+'_std',
+                                                 'FWHM_' + band2Name+'_avg', 'FWHM_' + band2Name+'_std',
+                                                 'Intensity_' + band3Name+'_avg', 'Intensity_' + band3Name+'_std',
+                                                 'Shift_' + band3Name+'_avg', 'Shift_' + band3Name+'_std',
+                                                 'FWHM_' + band3Name+'_avg', 'FWHM_' + band3Name+'_std'])
+                avg_df.loc[z]={
+                    'file':file_name[z],
+                    'Intensity_' + band1Name+'_avg': np.nanmean(Int_1plus),
+                    'Intensity_' + band1Name+'_std':np.nanstd(Int_1plus),
+                    'Shift_' + band1Name+'_avg': peak1plus_av,
+                    'Shift_' + band1Name+'_std': peak1plus_std,
+                    'FWHM_' + band1Name+'_avg': FWHM_1plus_av,
+                    'FWHM_' + band1Name+'_std': FWHM_1plus_std,
+                    'Intensity_' + band2Name+'_avg': np.nanmean(Int_2),
+                    'Intensity_' + band2Name+'_std':np.nanstd(Int_2),
+                    'Shift_' + band2Name+'_avg': peak2_av,
+                    'Shift_' + band2Name+'_std': peak2_std,
+                    'FWHM_' + band2Name+'_avg': FWHM_2_av,
+                    'FWHM_' + band2Name+'_std': FWHM_2_std,
+                    'Intensity_' + band3Name+'_avg': np.nanmean(Int_3),
+                    'Intensity_' + band3Name+'_std':np.nanstd(Int_3),
+                    'Shift_' + band3Name+'_avg': peak3_av,
+                    'Shift_' + band3Name+'_std': peak3_std,
+                    'FWHM_' + band3Name+'_avg': FWHM_3_av,
+                    'FWHM_' + band3Name+'_std': FWHM_3_std,
+                    }
+        
+        T['Intensity Ratio_2_1']=I21  
+        T['Intensity Ratio_3_1']=I31
+        T.index.name='Spectra #'
+        
+        nameT = folder_selected+'/'+nameFigs+'_Results/'+labels[z] + '_results.csv'
+        T.to_csv(nameT)
+        if z==total-1:
+            name_avg = folder_selected+'/'+nameFigs+'_Results/'+nameFigs + '_Average_results.csv'
+            avg_df.to_csv(name_avg,index=False)
+
+                    
             
  #%%% Save Figures in Scaleable Vector Format
     if saveFigs==1:
