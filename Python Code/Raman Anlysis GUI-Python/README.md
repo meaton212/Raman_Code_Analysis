@@ -91,12 +91,14 @@ Finally, click the corresponding box for saving the generated figures (in select
 ## OUTPUT
 Note: In the case of split of the peak 1 (nt=1), the code will take the more intense band (between peak 1<sup>+</sup> and 1<sup>-</sup>) for the intensity ratio calculations I<sub>2</sub>/I<sub>1</sub> and I<sub>3</sub>/I<sub>1</sub> as well as for the correlations position1 vs position 3.
 
-All output files are saved in a new folder labeled basename_Results (based on the input "basename" in the plotting options window.
+All output files are saved in a new folder labeled basename_Results (based on the input "basename" in the plotting options window).
 
 ### Output Text Files: spectral features results
 After analyzing all the data, the code will output a .csv file for each file analyzed. The resulting file will contain the spectral features results for each spectrum analyzed in the file. The file is saved as “Name of the sample_results.txt”
 The columns are labelled and contain, depending on the analysis performed, intensity, shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>, only if lorentz=1) of peaks 1 (peak 1<sup>-</sup> and peak 1<sup>+</sup> if nt=1), 2 and 3. If method 2 (lorentz fitting) is chosen the table will also contain the value of R<sup>2</sup> of the fitting for each peak and spectra. The RBM modes results are included in the last columns, with intensity and shift for each RBM mode found. Note that different spectra within a file might have different number of RBM (depending on the value of prom defined). The code saves as many columns as the maximum number of RBMs found in the spèctra. In the case that one specfic spectrum has less RBMs, then the value will be blanck in the corresponding column.
 
+##### Average Feature Data
+Additionally, another file named "basename_Average_Results.csv" is output with the average and standard deviation value for each spectral feature for each file
 
 ### Figures
 Several figures will be produced, with appropriate titles, labels and legends. Successive files will be plotted in different colors within the same graph. <b>Figures will not be automatically saved unless specified in the plotting options panel.</b>
