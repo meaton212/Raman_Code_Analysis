@@ -86,7 +86,7 @@ If method 2 (lorentzian fit) is selected in the analysis method step, a window w
 ### 6. Plotting options: 
 Last, the user can decide whether or not to produce and save specific plots in addition to the default ones. Click the desired boxes. 
 Moreover, select the width of the bins for the histograms showing the calculated statistics of the samples. Different widths can be chosen for the histograms of Raman shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>) and intensity ratio. And the user can select whether or not they want the histograms normalized, and the fontsize for the figures. Additionally, bad spectra can be filtered out of the results by picking a maximum intensity ratio (I<sub>2</sub>/I<sub>1</sub>).  Spectra whose I<sub>2</sub>/I<sub>1</sub> is larger than the input max value will be ignored in the histrograms, 2D maps, and average value calculations. 
-Finally, click the corresponding box for saving the generated figures (in selected image format) in the current datafolder. Type the basename for the saved figures.
+Finally, click the corresponding box for saving the generated figures (in selected image format, between .svg, .png, .tiff, and .jpg) in the current datafolder. Type the basename for the saved figures.
 
 ## OUTPUT
 Note: In the case of split of the peak 1 (nt=1), the code will take the more intense band (between peak 1<sup>+</sup> and 1<sup>-</sup>) for the intensity ratio calculations I<sub>2</sub>/I<sub>1</sub> and I<sub>3</sub>/I<sub>1</sub> as well as for the correlations position1 vs position 3.
@@ -113,14 +113,33 @@ The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved
 ####  Histograms
 Histograms of the distributions of shifts, intensity ratio and FWHM (if lorentz=1) for all spectra within every file. Different files will be plotted in the same graph to facilitate comparison and in different colors. Mean values and standard deviations are included in the legends of each plot. Each histogram will contain the data for all files analyzed in a single histogram. Spectra with I<sub>2</sub>/I<sub>1</sub> values greater than that input in the "max I<sub>2</sub>/I<sub>1</sub>" box will be removed from this analysis
 
-•	Intensity ratio, I<sub>2</sub>/I<sub>1</sub>
-•	Intensity ratio, I<sub>3</sub>/I<sub>1</sub>
-•	Raman shift of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
-•	FWHM of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
-•	RBM peaks position (if rbm = 1) 
-•	peak 1 intensity ratio, I<sub>1<sup>+</sup></sub>/I<sub>1<sup>-</sup></sub> , if nt = 1.
+* Intensity ratio, I<sub>2</sub>/I<sub>1</sub>
+* Intensity ratio, I<sub>3</sub>/I<sub>1</sub>
+* Raman shift of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
+* FWHM of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
+* RBM peaks position (if rbm = 1) 
+* peak 1 intensity ratio, I<sub>1<sup>+</sup></sub>/I<sub>1<sup>-</sup></sub> , if nt = 1.
+
+#### Correlations
+the following figures will be plot depending on the user inputs for correlation1, 2, 3, 4 and 5
+* Raman shift of peaks 1 (the more intense between 1+ or 1-, if nt = 1), 2 and 3 vs intensity ratio  I<sub>2</sub>/I<sub>1</sub>, respectively. 
+* Raman shift of peak 3 vs peak 1(the more intense between 1<sup>+</sup> or 1<sup>-</sup>, if nt = 1)
+* FWHM vs shift of peaks 1 (the more intense between 1<sup>+</sup> or 1<sup>-</sup>, if nt = 1), 2 and 3, respectively (Only if lorentz=1)
+The data for each spectra is plotted as a point. The data for each file is fit to a linear regression, with the linear regression line overlayed with the data and the fitting parameters included in the legend. The data for each file is plot on the same graph, with a different color for each file.
 
 
+####  2D Map
+If map = 1 (Mapping is selected in Analysis window), then 2D heat maps of the spectral features will be produced. 
+*  I<sub>2</sub>/I<sub>1</sub>
+* Shift peak 1  (the more intense between 1+ or 1-, if nt = 1)
+* Shift peak 2
+* Shift peak 3
+* I<sub>3</sub>/I<sub>1</sub> (if selected in plot options)
+*	FWHM of peak 1 (the more intense between 1<sup>+</sup> or 1<sup>-</sup>, if nt = 1), if selected in plot options.
+*	FWHM of peak 2, if selected in plot options.
+*	FWHM of peak 3, if selected in plot options.
+
+For the last file analyzed, the user can select specfic pixels from any of the maps, and plot the spectra of the selected pixels in a new figure. The user can select multiple pixels and overlay the spectra. The Most recent figure will be saved as "SelectedSpectra" in the chosen image file format. Closing the spectra figure or clicking on a different map will reset the selected spectra plot. 
 
 
 
