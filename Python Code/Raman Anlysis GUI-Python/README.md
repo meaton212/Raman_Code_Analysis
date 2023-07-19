@@ -51,5 +51,15 @@ A graphical interface has been created where the user should input their preferr
 * PlotInputs.py
 * RBMInputs.py
 
+### 1. Initializing:
+Starting from the main code (RamanAnalysis_nanomaterials_GUI.m), upon pressing the RUN command the program will be initiated.
+First, select the folder where the data files to be analyzed are stored.
 
+### 2. Data Selection
+* Choose the file type extension and the delimeter type from the dropdown menus, and press "Submit"
+* In the next window, press "open files" and select the desired files that you want to analyze. No more than 10 files may be selected
+* You can remove selected files by clicking the chosen file and clicking "Remove Selected"
+* Once all files have been selected, press "Continue"
+* In the next window, input the desired legend label for each of your selected files, and press "Save Labels"
 
+### 3. Analysis Method
