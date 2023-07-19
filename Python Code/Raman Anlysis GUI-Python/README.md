@@ -101,14 +101,25 @@ The columns are labelled and contain, depending on the analysis performed, inten
 ### Figures
 Several figures will be produced, with appropriate titles, labels and legends. Successive files will be plotted in different colors within the same graph. <b>Figures will not be automatically saved unless specified in the plotting options panel.</b>
 
-#### Spectra: 
+#### Spectra
 The plots of spectra (intensity vs. raman shift (cm<sup>-1</sup>)) will be saved as the following:
 * Raw data (if raw = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file.
 * Normalized spectra (if norm = 1). Each spectra in a file is plot on a single subplot, with a subplot for each file. 
 * Average spectra of each file. A single curve for each file on a single plot. This is always plotted.
 * Only if range=1.The spectral regions chosen for the intensity calculation of the 3 peaks (method 1) or for the peak fitting procedure (method 2). Each spectra in a file is plot on a single subplot, with a subplot for each file.
 * The Lorentian fit curves overlayed over normalized spectra for the 3 peaks (if lorentz = 1). Each peak is plotted in different subfigures. There is a separate graphic for each file. 
-* The RBM region with the identified peaks for each spectra marked (if rbm = 1 and peaks = 1). Each sample is plotted in different subfigures. 
+* The RBM region with the identified peaks for each spectra marked (if rbm = 1 and peaks = 1). Each sample is plotted in different subfigures.
+
+####  Histograms
+Histograms of the distributions of shifts, intensity ratio and FWHM (if lorentz=1) for all spectra within every file. Different files will be plotted in the same graph to facilitate comparison and in different colors. Mean values and standard deviations are included in the legends of each plot. Each histogram will contain the data for all files analyzed in a single histogram. Spectra with I<sub>2</sub>/I<sub>1</sub> values greater than that input in the "max I<sub>2</sub>/I<sub>1</sub>" box will be removed from this analysis
+
+•	Intensity ratio, I<sub>2</sub>/I<sub>1</sub>
+•	Intensity ratio, I<sub>3</sub>/I<sub>1</sub>
+•	Raman shift of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
+•	FWHM of peaks 1 (or 1<sup>+</sup> and 1<sup>-</sup>, if nt = 1), 2 and 3, respectively. 
+•	RBM peaks position (if rbm = 1) 
+•	peak 1 intensity ratio, I<sub>1<sup>+</sup></sub>/I<sub>1<sup>-</sup></sub> , if nt = 1.
+
 
 
 
