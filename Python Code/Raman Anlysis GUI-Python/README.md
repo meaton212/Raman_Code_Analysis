@@ -52,14 +52,48 @@ A graphical interface has been created where the user should input their preferr
 * RBMInputs.py
 
 ### 1. Initializing:
-Starting from the main code (RamanAnalysis_nanomaterials_GUI.m), upon pressing the RUN command the program will be initiated.
-First, select the folder where the data files to be analyzed are stored.
+Starting from the main code (RamanAnalysis_nanomaterials_GUI.py), upon pressing the RUN command the program will be initiated.
+* A pop-up window will appear telling the user to select the file containing directory. Press Ok to continue
+* Then, select the folder where the data files to be analyzed are stored.
 
 ### 2. Data Selection
-* Choose the file type extension and the delimeter type from the dropdown menus, and press "Submit"
+* Choose the file type extension and the delimiter type from the dropdown menus, and press "Submit"
 * In the next window, press "open files" and select the desired files that you want to analyze. No more than 10 files may be selected
 * You can remove selected files by clicking the chosen file and clicking "Remove Selected"
 * Once all files have been selected, press "Continue"
 * In the next window, input the desired legend label for each of your selected files, and press "Save Labels"
 
 ### 3. Analysis Method
+
+* 2 windows will pop up. First, an input panel where the user must add their preferred analysis parameters, and a second window containing a plot  of the average spectra of each of the samples. The plots are aimed to help the user to select the appropriate spectral range for their data
+
+#### Panel 1: Analysis method
+Select the analysis method. Method 1 is a simple approximation where peak location is defined as the point of maximum intensity within a range, while method 2 performs lorentzian peak fitting (width of the peaks are also retrieved with this method). Peak 1 can be splitted into 2 bands (for example G<sup>+</sup> and G<sup>-</sup> in carbon-based materials) by clicking the corresponding box. Radial breathing modes analysis can be selected here by clicking the corresponding option.
+
+#### Panel 2: Mapping options
+Select if Raman maps of the different spectral features are desired by clicking the "Mapping" box. In the left column, introduce the number of pixels in X and Y. If the dimensions of each dimension are known, click the "Use Dimension" box. In the right column, indicate the corresponding distances on X and Y for the map (in micrometers).
+
+#### Panel 3: Peak information. 
+A total of 3 peaks can be analyzed, and peak 1 can be split into 2 peaks (if the corresponding box is selected in panel 1, and lorentzian peak fitting is chosen). Input the lower and upper bounds of the spectral range (in cm<sup>-1</sup>) where the maximum intensity value will be used to find the peaks location. If lorentzian fits are chosen, then the code will fit this shift range to a lorentzian distrubution function. Moreover, the name of the peaks should be introduced here (ie G, D, 2D etc)
+After pressing ‘OK’, a figure will be generated plotting the averaged and normalized spectra for each of the samples.
+
+### 4. RBM inputs:
+If the RBM analysis is chosen in previous step, a window will pop up asking for the spectral range where the peaks are located and the prominence value. This value sets the max limit at which peaks will be considered for the RBM analysis. Local maxima with a maximum height lower than Prominence will be discarded. Input a prominence value for each of the files analyzed separated by commas: Prom_sample1, Prom_sample2, Prom_sample3, … *Only relevant if RBM=1
+
+### 5. Initial estimates for lorentzian fitting: 
+If method 2 (lorentzian fit) is selected in the analysis method step, a window will open requesting initial estimates for the position, FWHM and maximum intensity of each of the peaks. Input a list of 3 parameters contained within brackets: [center, FWHM, and Max_intensity], in this order and separated by commas for each analyzed file. Initial guesses for different files should be separated by commas (,).
+
+### 6. Plotting options: 
+Last, the user can decide whether or not to produce and save specific plots in addition to the default ones. Click the desired boxes. 
+Moreover, select the width of the bins for the histograms showing the calculated statistics of the samples. Different widths can be chosen for the histograms of Raman shift (in cm<sup>-1</sup>), FWHM (in cm<sup>-1</sup>) and intensity ratio.
+Finally, click the corresponding box for saving the generated figures (in selected image format) in the current datafolder. Type the basename for the saved figures.
+
+
+
+
+
+
+
+
+
+
