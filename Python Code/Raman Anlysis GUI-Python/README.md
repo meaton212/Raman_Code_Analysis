@@ -32,6 +32,19 @@ Additionally, the Raman code will plot the spectra for each file in several plot
 
 Finally, the code can also plot a contour map of the spectral features in 2D for any spatially distributed Raman spectra. Specifically, color maps of the position of the 3 peaks, widths and the intensity ratios I<sub>2</sub>/I<sub>1</sub>, I<sub>3</sub>/I<sub>1</sub> will be plotted. The user can plot Raman maps of specific spectral features for samples where the spatial arrangement is relevant, such as in the case of controlled patterning of nanomaterials.
 
+## Python Packages
+
+To run this code, make sure the following Python packages are installed:
+* pandas
+* numpy
+* os
+* matplotlib
+* scipy
+* tqdm
+* tkinter
+
+Note, the tkinter package has some issues with some MacOS versions. If you run into any issues, please consult [https://www.pythonguis.com/installation/install-tkinter-mac/](https://www.pythonguis.com/installation/install-tkinter-mac/)
+  
 ## Data Format
 
 * Data can be saved in any text based file format, including, but not limited to .txt, .dpt, .csv, and .dat. The file type is defined by the user in the input section.
